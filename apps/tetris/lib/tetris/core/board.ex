@@ -1,11 +1,27 @@
 defmodule Tetris.Core.Board do
 
+
+  @default_width 100
+  @default_height 50
+
   defstruct ~w(
     tiles
-    state
-    active_shape
-    next_shape
+    seq_map
+    width
+    height
+    indexor
+    lanes
   )a
+
+  # def new(input_width // @default_width, input_height // @default_height  ) do
+  def new(input_width \\ @default_width, input_height \\ @default_height  ) do
+    %__MODULE__{
+      width: input_width,
+      height: input_height,
+      lanes: %{},
+      indexor: Map.new(empty_lanes: Enum.map(1..input_height, &(&1)))
+    }
+  end
 
 
   # lane_seq = {:empty, :empty, :empty, lane_14rand0m, lane_12rand0m}
