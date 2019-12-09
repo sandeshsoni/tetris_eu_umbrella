@@ -65,7 +65,7 @@ defmodule Tetris.Core.Shape do
       length: 2,
       offset_x: starting_point_x,
       offset_y: starting_point_y,
-      color: :red
+      color: :blue
     }
   end
 

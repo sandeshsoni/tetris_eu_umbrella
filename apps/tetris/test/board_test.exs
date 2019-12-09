@@ -36,7 +36,7 @@ defmodule Tetris.Core.Board_test do
 
     test "no duplicate filled lanes" do
       board = Board.new()
-      shape_at_custom_position = Shape.new(:s_shape, 20, 40)
+      shape_at_custom_position = Shape.new(:l_shape, 10, 70)
 
       shape_added_board = Board.add_shape(board, shape_at_custom_position)
 

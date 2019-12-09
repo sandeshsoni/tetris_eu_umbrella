@@ -32,7 +32,7 @@ defmodule Tetris.Core.Board do
                 } = board,
     %Shape{ offset_x: shape_offset_x,
             offset_y: shape_offset_y,
-            color: color,
+            color: shape_color,
             coordinates: coordinates
     } = shape) do
 
@@ -40,13 +40,9 @@ defmodule Tetris.Core.Board do
 
     # IO.puts inspect(tiles)
 
-    board = add_tiles_to_board(board, tiles, :red)
-
-
-    # IO.puts board_lanes[]
+    board = add_tiles_to_board(board, tiles, shape_color)
 
     board
-    # %__MODULE__{board}
   end
 
   def add_tiles_to_board(board, tiles, color) do
@@ -55,23 +51,31 @@ defmodule Tetris.Core.Board do
 
   def add_tile_to_board(board, {x, y} = tile, color) do
 
-    [first | remaining_empty_lanes] = board.empty_lane_ids
+    # require IEx; IEx.pry
+    # IO.puts
+    {remaining_empty_lanes, u_indexor, u_lanes} = if Map.has_key?(board.indexor, y) do
 
-    updated_indexor = Map.put(board.indexor, first, x)
+      # require IEx; IEx.pry
 
-    updated_lanes = Map.put(board.lanes, first, %{y => color})
+      lane_key = board.indexor[y]
+      y_lane = board.lanes[lane_key]
+      y_lane_added = Map.put(y_lane, x, color)
+      updated_lanes = Map.put(board.lanes, lane_key, y_lane_added)
 
-    # require IEx;
-    # IEx.pry
+      {board.empty_lane_ids, board.indexor, updated_lanes}
+    else
+      [first | remaining_empty_lanes] = board.empty_lane_ids
+
+      updated_indexor = Map.put(board.indexor, y, first)
+      updated_lanes = Map.put(board.lanes, first, %{x => color})
+
+      {remaining_empty_lanes, updated_indexor, updated_lanes}
+    end
 
 
-    # empty_lane = board.indexor[:empty_lanes].first
-    # board = Map.put(board, 4, %{1 => :red})
-    # IO.puts inspect(tile)
-    # board
     %__MODULE__{
-      board | indexor: updated_indexor,
-      lanes: updated_lanes,
+      board | indexor: u_indexor,
+      lanes: u_lanes,
       empty_lane_ids: remaining_empty_lanes
     }
   end
