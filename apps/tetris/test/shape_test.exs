@@ -49,6 +49,46 @@ defmodule Tetris.Shape_test do
 
   end
 
+  describe "move shapes" do
+
+    test "move a left to left" do
+      starting_point_x = 5
+      starting_point_y = 0
+      shape = Shape.new(:s_shape, starting_point_x, starting_point_y)
+
+      moved_shape = Shape.move_left(shape)
+
+      assert moved_shape.offset_x == 4
+      assert moved_shape.offset_y == 0
+
+    end
+
+    test "move once right" do
+      starting_point_x = 5
+      starting_point_y = 0
+      shape = Shape.new(:s_shape, starting_point_x, starting_point_y)
+
+      moved_shape = Shape.move_right(shape)
+
+      assert moved_shape.offset_x == 6
+      assert moved_shape.offset_y == 0
+
+    end
+
+    test "move once down" do
+      starting_point_x = 5
+      starting_point_y = 0
+      shape = Shape.new(:s_shape, starting_point_x, starting_point_y)
+
+      moved_shape = Shape.move_down(shape)
+
+      assert moved_shape.offset_x == starting_point_x
+      assert moved_shape.offset_y == 1
+
+    end
+
+  end
+
 
   test "rotate at boundary" do
     #
