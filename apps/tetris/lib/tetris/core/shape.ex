@@ -69,8 +69,8 @@ defmodule Tetris.Core.Shape do
     }
   end
 
-  def with_offset_counted(shape) do
-    #
+  def with_offset_counted(%__MODULE__{offset_x: shape_offset_x, offset_y: shape_offset_y, coordinates: coordinates} = _shape) do
+    Enum.map(coordinates, fn {x,y} -> {x + shape_offset_x, y + shape_offset_y} end)
   end
 
   # coordinate {x,y}
