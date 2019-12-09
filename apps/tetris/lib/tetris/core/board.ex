@@ -1,5 +1,6 @@
 defmodule Tetris.Core.Board do
 
+  alias Tetris.Core.Shape
 
   @default_width 100
   @default_height 50
@@ -10,6 +11,7 @@ defmodule Tetris.Core.Board do
     width
     height
     indexor
+    empty_lane_ids
     lanes
   )a
 
@@ -19,10 +21,60 @@ defmodule Tetris.Core.Board do
       width: input_width,
       height: input_height,
       lanes: %{},
-      indexor: Map.new(empty_lanes: Enum.map(1..input_height, &(&1)))
+      empty_lane_ids: Enum.map(1..input_height, &(&1)),
+      indexor: %{}
+      # Map.new(empty_lanes: Enum.map(1..input_height, &(&1)))
     }
   end
 
+  def add_shape(%__MODULE__{
+        lanes: board_lanes
+                } = board,
+    %Shape{ offset_x: shape_offset_x,
+            offset_y: shape_offset_y,
+            color: color,
+            coordinates: coordinates
+    } = shape) do
+
+    tiles = Enum.map(coordinates, fn {x,y} -> {x + shape_offset_x, y + shape_offset_y} end)
+
+    # IO.puts inspect(tiles)
+
+    board = add_tiles_to_board(board, tiles, :red)
+
+
+    # IO.puts board_lanes[]
+
+    board
+    # %__MODULE__{board}
+  end
+
+  def add_tiles_to_board(board, tiles, color) do
+    Enum.reduce(tiles, board, fn tile, acc_board -> add_tile_to_board(acc_board, tile, color ) end)
+  end
+
+  def add_tile_to_board(board, {x, y} = tile, color) do
+
+    [first | remaining_empty_lanes] = board.empty_lane_ids
+
+    updated_indexor = Map.put(board.indexor, first, x)
+
+    updated_lanes = Map.put(board.lanes, first, %{y => color})
+
+    # require IEx;
+    # IEx.pry
+
+
+    # empty_lane = board.indexor[:empty_lanes].first
+    # board = Map.put(board, 4, %{1 => :red})
+    # IO.puts inspect(tile)
+    # board
+    %__MODULE__{
+      board | indexor: updated_indexor,
+      lanes: updated_lanes,
+      empty_lane_ids: remaining_empty_lanes
+    }
+  end
 
   # lane_seq = {:empty, :empty, :empty, lane_14rand0m, lane_12rand0m}
   # tiles: {1,2} => :red
@@ -42,7 +94,7 @@ defmodule Tetris.Core.Board do
 
   end
 
-  def intersection_check? do
+  defp intersection_check? do
     board = %{}
     seq_map = %{19 => 1, 20 => 4, empties: [1,2]}
 
@@ -58,14 +110,14 @@ defmodule Tetris.Core.Board do
   end
 
   # get all matured lanes
-  def any_lane_matured? do
+  defp any_lane_matured? do
     board = %{}
 
     # lanes_where shaped dropped
     # 19, 20
   end
 
-  def on_matured do
+  defp on_matured do
     lanes = %{19 => 17, empty: [19, 1,2]}
     # change key or copy paste to new location
 

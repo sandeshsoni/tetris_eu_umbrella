@@ -64,7 +64,8 @@ defmodule Tetris.Core.Shape do
       coordinates: MapSet.new([{2,1}, {3,1}, {1,2}, {2,2}]),
       length: 2,
       offset_x: starting_point_x,
-      offset_y: starting_point_y
+      offset_y: starting_point_y,
+      color: :red
     }
   end
 
