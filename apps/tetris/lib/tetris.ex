@@ -1,18 +1,17 @@
 defmodule Tetris do
+
+  alias Tetris.Boundary.{GameSession}
+
   @moduledoc """
   Documentation for Tetris.
   """
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Tetris.hello()
-      :world
-
-  """
-  def hello do
-    :world
+  def start_game_session do
+    GenServer.start_link(GameManager, %{}, name: GameManager)
   end
+
+  def move(session, direction) do
+    GenServer.handle_call(session, {:move, direction})
+  end
+
 end

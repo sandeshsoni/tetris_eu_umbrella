@@ -1,10 +1,11 @@
-defmodule Tetris.Board do
+defmodule Tetris.Core.Board do
 
-  defstruct ~w( tiles
+  defstruct ~w(
+    tiles
     state
     active_shape
     next_shape
- )a
+  )a
 
 
   # lane_seq = {:empty, :empty, :empty, lane_14rand0m, lane_12rand0m}
