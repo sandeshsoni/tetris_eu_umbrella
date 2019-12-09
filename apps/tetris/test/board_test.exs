@@ -64,6 +64,7 @@ defmodule Tetris.Core.Board_test do
       # IO.puts inspect(shape_added_board.indexor)
 
       assert Board.check_tile_slot_empty(shape_added_board, {11, 72}) == true
+      refute Board.check_tile_slot_empty(shape_added_board, {9, 72}) == true
     end
 
     test "get occupied tile of shape" do

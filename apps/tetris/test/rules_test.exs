@@ -30,4 +30,25 @@ defmodule TetrisTest.RulesTest do
 
   end
 
+  describe "touches y axis" do
+    test "on empty new board" do
+      #
+    end
+
+    test "when shape below" do
+      board = Board.new(50,50)
+      shape = Tetris.Core.Shape.new(:s_shape, 11, 47)
+      b_w_s = Board.add_shape(board, shape)
+
+      # IO.puts inspect(b_w_s)
+
+      just_2_above_shape = Tetris.Core.Shape.new(:s_shape, 11, 45)
+      just_1_above_shape = Tetris.Core.Shape.new(:s_shape, 11, 46)
+
+      assert Rules.touches_y?(b_w_s, just_2_above_shape) == false
+      assert Rules.touches_y?(b_w_s, just_1_above_shape) == true
+      assert Rules.touches_y?(b_w_s, shape) == true
+    end
+  end
+
 end
