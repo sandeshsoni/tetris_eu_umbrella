@@ -80,6 +80,23 @@ defmodule Tetris.Core.Board do
     }
   end
 
+  def check_tile_slot_empty(board,{x, y} = tile) do
+    require IEx;
+    IEx.pry
+
+    index_y = Map.get(board.indexor, y, 0)
+    tile_color = Map.get(board.lanes, index_y, %{}) |> Map.get(x, :empty)
+
+    if tile_color == :empty do
+      false
+    else
+      true
+    end
+
+    # index_y = board.indexor(y)
+    # board[index_y][x]
+  end
+
   # lane_seq = {:empty, :empty, :empty, lane_14rand0m, lane_12rand0m}
   # tiles: {1,2} => :red
 

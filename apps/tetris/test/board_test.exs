@@ -54,4 +54,25 @@ defmodule Tetris.Core.Board_test do
 
   end
 
+  describe "tile occupied check" do
+    test "single tile check" do
+      board = Board.new()
+      shape_at_custom_position = Shape.new(:l_shape, 10, 70)
+      shape_added_board = Board.add_shape(board, shape_at_custom_position)
+
+      # IO.puts inspect(shape_added_board.lanes)
+      # IO.puts inspect(shape_added_board.indexor)
+
+      assert Board.check_tile_slot_empty(shape_added_board, {11, 72}) == true
+    end
+
+    test "get occupied tile of shape" do
+      board = Board.new()
+      shape_at_custom_position = Shape.new(:l_shape, 10, 70)
+      shape_added_board = Board.add_shape(board, shape_at_custom_position)
+
+    end
+
+  end
+
 end
