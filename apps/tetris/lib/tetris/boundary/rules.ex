@@ -4,7 +4,7 @@ defmodule Tetris.Boundary.Rules do
   # def touches_side_boundary?(board, shape) do
   def shape_outside_board?(board, shape, {x_coordinate, y_coordinate}) do
     Tetris.Core.Shape.with_offset_counted(shape, x_coordinate, y_coordinate)
-    |> Enum.reduce_while(false, fn {x, y}, acc -> if (x > 0 and x < board.width), do: {:cont, false}, else: {:halt, true} end)
+    |> Enum.reduce_while(false, fn {x, y}, acc -> if (x > 1 and x < board.width), do: {:cont, false}, else: {:halt, true} end)
   end
 
   # so that can drop and move

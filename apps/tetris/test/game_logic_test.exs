@@ -38,8 +38,8 @@ defmodule TetrisTest.GameLogicTest do
   describe "move" do
     test "free move" do
       board = Board.new(20, 20)
-      current_shape = Shape.new(:s_shape, 1,1)
-      game = Game.new(%{board: board})
+      current_shape = Shape.new(:s_shape)
+      game = Game.new(%{board: board, active_shape: current_shape, offset_x: 5, offset_y: 1})
       game_after_move = GameLogic.move(game, :left)
 
       assert game != game_after_move
@@ -47,12 +47,22 @@ defmodule TetrisTest.GameLogicTest do
 
     test "left side boundary" do
       board = Board.new(20, 20)
-      current_shape = Shape.new(:s_shape, 1,1)
-      game = Game.new(%{board: board})
+      current_shape = Shape.new(:s_shape)
+      game = Game.new(%{board: board, active_shape: current_shape, offset_x: 1, offset_y: 1})
       game_after_move = GameLogic.move(game, :left)
 
       assert game == game_after_move
     end
+
+    test "right side boundary" do
+      board = Board.new(20, 20)
+      current_shape = Shape.new(:s_shape)
+      game = Game.new(%{board: board, active_shape: current_shape, offset_x: 18, offset_y: 1})
+      game_after_move = GameLogic.move(game, :right)
+
+      assert game == game_after_move
+    end
+
 
     # # @tag :skip
     # test "when collides with existing tile on x-axis"

@@ -4,7 +4,7 @@ defmodule TetrisTest.RulesTest do
   alias Tetris.Core.{Game, Shape, Board}
   alias Tetris.Boundary.{Rules}
 
-  describe "boundaries side and bottom" do
+  describe "boundaries" do
     test "side boundary, negative x" do
       board = Board.new(50,50)
 
