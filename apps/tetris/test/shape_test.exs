@@ -51,6 +51,7 @@ defmodule Tetris.Shape_test do
 
   describe "move shapes" do
 
+    @tag :skip
     test "move a left to left" do
       starting_point_x = 5
       starting_point_y = 0
@@ -63,6 +64,7 @@ defmodule Tetris.Shape_test do
 
     end
 
+    @tag :skip
     test "move once right" do
       starting_point_x = 5
       starting_point_y = 0
@@ -75,6 +77,7 @@ defmodule Tetris.Shape_test do
 
     end
 
+    @tag :skip
     test "move once down" do
       starting_point_x = 5
       starting_point_y = 0

@@ -11,6 +11,8 @@ defmodule TetrisTest.GameTest do
       assert Map.has_key?(game, :score)
       assert Map.has_key?(game, :current_state)
       assert Map.has_key?(game, :active_shape)
+      assert Map.has_key?(game, :offset_x)
+      assert Map.has_key?(game, :offset_y)
     end
 
     test "new init values" do

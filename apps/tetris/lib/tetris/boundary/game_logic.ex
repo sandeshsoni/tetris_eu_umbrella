@@ -9,6 +9,7 @@ defmodule Tetris.Boundary.GameLogic do
     # active_shape
     # next_shape
     # board
+    game
   end
 
 end

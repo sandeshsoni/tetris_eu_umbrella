@@ -27,18 +27,20 @@ defmodule Tetris.Core.Board_test do
 
     test "ignoring rules" do
       board = Board.new()
-      shape_at_custom_position = Shape.new(:s_shape, 20, 40)
+      shape_at_custom_position = Shape.new(:s_shape)
+      custom_pos_coords = {20, 40}
 
-      shape_added_board = Board.add_shape(board, shape_at_custom_position)
+      shape_added_board = Board.add_shape(board, shape_at_custom_position, custom_pos_coords)
 
       refute board.empty_lane_ids == shape_added_board.empty_lane_ids
     end
 
     test "no duplicate filled lanes" do
       board = Board.new()
-      shape_at_custom_position = Shape.new(:l_shape, 10, 70)
+      shape = Shape.new(:l_shape)
+      custom_position_coordinates = {10, 70}
 
-      shape_added_board = Board.add_shape(board, shape_at_custom_position)
+      shape_added_board = Board.add_shape(board, shape, custom_position_coordinates)
 
       indexor_count = shape_added_board.indexor
       |> Map.values
@@ -57,9 +59,12 @@ defmodule Tetris.Core.Board_test do
   describe "tile occupied check" do
     test "single tile check" do
       board = Board.new()
-      shape_at_custom_position = Shape.new(:l_shape, 10, 70)
-      shape_added_board = Board.add_shape(board, shape_at_custom_position)
+      shape_at_custom_position = Shape.new(:l_shape)
+      {x_coordinate, y_coordinate} = {10, 70}
 
+      shape_added_board = Board.add_shape(board, shape_at_custom_position, {x_coordinate, y_coordinate})
+
+      shape_coordinate = {10, 70}
 
       far_coordinate = {9,12}
       near_coordinate = {11,72}
@@ -70,8 +75,10 @@ defmodule Tetris.Core.Board_test do
 
     test "get occupied tile of shape" do
       board = Board.new()
-      shape_at_custom_position = Shape.new(:l_shape, 10, 70)
-      shape_added_board = Board.add_shape(board, shape_at_custom_position)
+      shape_at_custom_position = Shape.new(:l_shape)
+      {x_coordinate, y_coordinate} = {10, 70}
+
+      shape_added_board = Board.add_shape(board, shape_at_custom_position, {x_coordinate, y_coordinate})
 
     end
 

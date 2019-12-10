@@ -30,13 +30,14 @@ defmodule Tetris.Core.Board do
   def add_shape(%__MODULE__{
         lanes: board_lanes
                 } = board,
-    %Shape{ offset_x: shape_offset_x,
-            offset_y: shape_offset_y,
-            color: shape_color,
-            coordinates: coordinates
-    } = shape) do
+    %Shape{
+      color: shape_color,
+      coordinates: coordinates
+    } = shape,
+    {offset_x, offset_y}
+  ) do
 
-    tiles = Enum.map(coordinates, fn {x,y} -> {x + shape_offset_x, y + shape_offset_y} end)
+    tiles = Enum.map(coordinates, fn {x,y} -> {x + offset_x, y + offset_y} end)
 
     board = add_tiles_to_board(board, tiles, shape_color)
 
