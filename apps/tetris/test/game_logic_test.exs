@@ -6,7 +6,11 @@ defmodule TetrisTest.GameLogicTest do
 
   describe "new game started" do
 
-    test "a step" do
+    test "new game" do
+
+      board = Board.new(20, 20)
+      game = Game.new(%{board: board})
+
       # new Game is a core function,
       # not a boundary
 
