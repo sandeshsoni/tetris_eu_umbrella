@@ -38,8 +38,6 @@ defmodule Tetris.Core.Board do
 
     tiles = Enum.map(coordinates, fn {x,y} -> {x + shape_offset_x, y + shape_offset_y} end)
 
-    # IO.puts inspect(tiles)
-
     board = add_tiles_to_board(board, tiles, shape_color)
 
     board
@@ -51,11 +49,7 @@ defmodule Tetris.Core.Board do
 
   def add_tile_to_board(board, {x, y} = tile, color) do
 
-    # require IEx; IEx.pry
-    # IO.puts
     {remaining_empty_lanes, u_indexor, u_lanes} = if Map.has_key?(board.indexor, y) do
-
-      # require IEx; IEx.pry
 
       lane_key = board.indexor[y]
       y_lane = board.lanes[lane_key]
@@ -85,9 +79,9 @@ defmodule Tetris.Core.Board do
     tile_color = Map.get(board.lanes, index_y, %{}) |> Map.get(x, :empty)
 
     if tile_color == :empty do
-      false
-    else
       true
+    else
+      false
     end
   end
 

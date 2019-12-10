@@ -14,13 +14,17 @@ defmodule Tetris.Boundary.Rules do
   end
 
   def touches_y?(board, shape) do
-    IO.puts inspect(Tetris.Core.Shape.with_offset_counted(shape))
-    IO.puts "------+++++++"
-
-    # require IEx; IEx.pry
 
     Tetris.Core.Shape.with_offset_counted(shape)
-    |> Enum.reduce_while(false, fn {x, y}, acc -> if !Board.check_tile_slot_empty(board, {x, y}), do: {:cont, false}, else: {:halt, true} end)
+    |> Enum.reduce_while(false, fn {x, y}, acc -> if Board.check_tile_slot_empty(board, {x, y + 1}), do: {:cont, false}, else: {:halt, true} end)
+  end
+
+  def intersection_x?(board, shape) do
+
+    tiles = Tetris.Core.Shape.with_offset_counted(shape)
+
+    Tetris.Core.Shape.with_offset_counted(shape)
+    |> Enum.reduce_while(false, fn {x, y}, acc -> if Board.check_tile_slot_empty(board, {x, y}), do: {:cont, false}, else: {:halt, true} end)
   end
 
   def check_rotate_valid do

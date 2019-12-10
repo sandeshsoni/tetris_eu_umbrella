@@ -60,11 +60,12 @@ defmodule Tetris.Core.Board_test do
       shape_at_custom_position = Shape.new(:l_shape, 10, 70)
       shape_added_board = Board.add_shape(board, shape_at_custom_position)
 
-      # IO.puts inspect(shape_added_board.lanes)
-      # IO.puts inspect(shape_added_board.indexor)
 
-      assert Board.check_tile_slot_empty(shape_added_board, {11, 72}) == true
-      refute Board.check_tile_slot_empty(shape_added_board, {9, 72}) == true
+      far_coordinate = {9,12}
+      near_coordinate = {11,72}
+
+      assert Board.check_tile_slot_empty(shape_added_board, far_coordinate) == true
+      assert Board.check_tile_slot_empty(shape_added_board, near_coordinate) == false
     end
 
     test "get occupied tile of shape" do

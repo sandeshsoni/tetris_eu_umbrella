@@ -40,14 +40,31 @@ defmodule TetrisTest.RulesTest do
       shape = Tetris.Core.Shape.new(:s_shape, 11, 47)
       b_w_s = Board.add_shape(board, shape)
 
-      # IO.puts inspect(b_w_s)
-
-      just_2_above_shape = Tetris.Core.Shape.new(:s_shape, 11, 45)
+      just_3_above_shape = Tetris.Core.Shape.new(:s_shape, 11, 44)
       just_1_above_shape = Tetris.Core.Shape.new(:s_shape, 11, 46)
+      far_away_shape = Tetris.Core.Shape.new(:l_shape, 15, 44)
 
-      assert Rules.touches_y?(b_w_s, just_2_above_shape) == false
+      assert Rules.touches_y?(b_w_s, just_3_above_shape) == false
       assert Rules.touches_y?(b_w_s, just_1_above_shape) == true
+      assert Rules.touches_y?(b_w_s, far_away_shape) == false
       assert Rules.touches_y?(b_w_s, shape) == true
+    end
+  end
+
+  describe "x intersection with existing shapes" do
+    test "insert shape on empty" do
+      board = Board.new(50,50)
+      shape = Tetris.Core.Shape.new(:s_shape, 11, 45)
+      b_w_s = Board.add_shape(board, shape)
+
+      # shape_to_check = Tetris.Core.Shape.new(:l_shape, 15, 44)
+      far_away_shape = Tetris.Core.Shape.new(:l_shape, 15, 44)
+      very_close_shape = Tetris.Core.Shape.new(:l_shape, 12, 45)
+
+      # assert Rules.intersection_x?(b_w_s, shape_to_check) == true
+      assert Rules.intersection_x?(b_w_s, far_away_shape) == false
+      assert Rules.intersection_x?(b_w_s, very_close_shape) == true
+
     end
   end
 
