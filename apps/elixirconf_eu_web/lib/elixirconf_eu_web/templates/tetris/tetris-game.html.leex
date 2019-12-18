@@ -1,0 +1,85 @@
+<div class="tetris-container"
+     phx-hook="StopKeyScroll">
+  <div class="board-container">
+    <div>
+      <p>
+        <span style="font-family: 'Press Start 2P';font-size: 22px;
+                     color: yellow;
+                     ">
+          Tetris Kachori
+        </span>
+      </p>
+      <div class="tetris grid"
+           phx-keyup="move"
+           phx-target="window"
+           style="
+                  grid-template-columns: repeat(<%= @board.x %>, 1fr);
+                  grid-template-rows: repeat(<%= @board.y %>, 1fr);
+                  "
+           >
+
+        <%= for {x,y} <- @active_shape.coordinates do %>
+
+            <div class="tetris grid-tile"
+                 style="
+                        grid-row: <%= y + @active_shape.offset_y %>;
+                        grid-column: <%= x + @active_shape.offset_x %>;
+                        background-color: <%= @active_shape.color %>
+                        " >
+            </div>
+            <% end %>
+
+
+            <%= for tile <- @board.filled_tiles do %>
+
+
+                <div class="tetris grid-tile"
+                     style="
+                            grid-row: <%= tile.y %>;
+                            grid-column: <%= tile.x %>;
+                            background-color: <%= tile.color %>
+                            "
+
+                     >
+                </div>
+                <% end %>
+
+      </div>
+      <br/>
+      <div>
+        <button phx-click="joystick-move" phx-value-dir="down">down</button>
+        <button phx-click="joystick-move" phx-value-dir="up">rotate</button>
+        <button phx-click="joystick-move" phx-value-dir="left">left</button>
+        <button phx-click="joystick-move" phx-value-dir="right">right</button>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <aside>
+    <a href="/" class="button"  > HOME </a>
+    <p>
+      Hello, <span><%= @player_name %></span>
+    </p>
+
+    <div class="score">
+      <span> Score: <%= @score %> </span>
+    </div>
+
+
+    <ul>
+      <li> Press Arrow Keys.
+      <li> left, right to move </li>
+      <li> Up key to rotate. </li>
+      <li> Down key to move down faster. </li>
+    </ul>
+    <br/>
+    <p> built with <span style="color: red"> &hearts; </span> by <a href="http://www.sandeshsoni.com">Sandesh Soni</a></p>
+    <p> Pune, India </p>
+</div>
+
+</aside>
+
+</div>
