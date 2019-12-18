@@ -7,7 +7,7 @@ defmodule ElixirconfEu.Application do
 
   def start(_type, _args) do
     children = [
-      ElixirconfEu.Repo
+      # ElixirconfEu.Repo
     ]
 
     Supervisor.start_link(children, strategy: :one_for_one, name: ElixirconfEu.Supervisor)
