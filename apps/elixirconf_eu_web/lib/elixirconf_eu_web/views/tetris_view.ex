@@ -1,5 +1,3 @@
-defmodule ElixirconfEUWeb.TetrisView do
-  use ElixirconfEUWeb, :view
-  end
-  enddo
+defmodule ElixirconfEuWeb.TetrisView do
+  use ElixirconfEuWeb, :view
 end

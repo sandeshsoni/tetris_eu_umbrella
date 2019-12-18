@@ -45,7 +45,8 @@ defmodule ElixirconfEuWeb.MixProject do
       {:gettext, "~> 0.11"},
       {:elixirconf_eu, in_umbrella: true},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+      {:phoenix_live_view, "~> 0.4.0"}
     ]
   end
 

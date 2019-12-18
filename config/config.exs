@@ -22,7 +22,9 @@ config :elixirconf_eu_web, ElixirconfEuWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "t5C6lNBZ+F2hSerCa+LX1pfcyX6ftaPpSx6ITsiFXRiIZ88ZSGV8Re6Rnf0HxRSL",
   render_errors: [view: ElixirconfEuWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: ElixirconfEuWeb.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: ElixirconfEuWeb.PubSub, adapter: Phoenix.PubSub.PG2],
+  live_view: [signing_salt: "ofJyfQ6t2KoLA/juNCgRnpZTXJrgBC6i"]
+
 
 # Configures Elixir's Logger
 config :logger, :console,

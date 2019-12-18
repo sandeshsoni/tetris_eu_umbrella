@@ -7,6 +7,7 @@ defmodule Tetris.Core.Game do
     next_shape
     board
     score
+    game_shapes
     offset_x
     offset_y
   ]a
