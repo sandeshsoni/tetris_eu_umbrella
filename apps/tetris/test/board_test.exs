@@ -54,6 +54,14 @@ defmodule Tetris.Core.Board_test do
       assert indexor_count == uniq_indexor_count
     end
 
+    test "disallow add if the tiles on board are already solid" do
+      board = Board.new()
+      shape = Shape.new(:l_shape)
+      custom_position_coordinates = {10, 70}
+
+      shape_added_board = Board.add_shape(board, shape, custom_position_coordinates)
+    end
+
   end
 
   describe "tile occupied check" do

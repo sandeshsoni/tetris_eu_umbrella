@@ -64,8 +64,25 @@ defmodule TetrisTest.GameLogicTest do
     end
 
 
-    # # @tag :skip
-    # test "when collides with existing tile on x-axis"
+    # @tag :skip
+    test "when collides with existing tile on x-axis" do
+      board = Board.new(20, 20)
+      current_shape = Shape.new(:s_shape)
+      game = Game.new(%{board: board, active_shape: current_shape, offset_x: 15, offset_y: 10})
+
+      {x_coordinate, y_coordinate} = {14, 10}
+      shape_added_board = Board.add_shape(board, current_shape, {x_coordinate, y_coordinate})
+
+      IO.puts inspect(shape_added_board.indexor)
+      IO.puts inspect(shape_added_board.lanes)
+      IO.puts List.duplicate("-", 10)
+      IO.puts inspect(Shape.with_offset_counted(current_shape, game.offset_x, game.offset_y))
+
+      game_after_move = GameLogic.move(%Game{ game | board: shape_added_board}, :left)
+
+      assert game == game_after_move
+    end
+
     # @tag :skip
     # test "when a shape below"
 
