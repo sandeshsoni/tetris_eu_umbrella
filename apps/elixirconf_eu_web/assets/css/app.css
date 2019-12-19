@@ -1,3 +1,140 @@
 /* This file is for your main application css. */
 
 @import "./phoenix.css";
+
+.tetris-container {
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    background-image: url("/images/tetris_bg.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.tetris-grid {
+    grid-template-columns: repeat(100, 1fr);
+    grid-template-rows: repeat(50, 1fr);
+    grid-gap: 5px;
+
+}
+
+.tetris-grid > * {
+    border: 2px solid rgb(137,153,175);
+
+}
+
+
+@media screen and (min-width:769px){
+    .tetris-container{
+        flex-direction: row;
+    }
+
+    .tetris.grid-tile {
+        height: 22px;
+        width: 22px;
+    }
+
+
+}
+@media screen and (max-width:768px){
+    .tetris-container{
+        flex-direction: column;
+    }
+
+    .tetris.grid-tile {
+        height: 18px;
+        width: 18px;
+    }
+
+}
+@media screen and (max-width: 517px){
+    .tetris-container{
+        flex-direction: column;
+    }
+    .tetris.grid-tile {
+        height: 14px;
+        width: 14px;
+    }
+}
+
+.cards-xcontainer {
+    display: flex;
+    flex-direction: row
+
+}
+
+.board-container {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    background: black;
+    color: blue;
+
+}
+
+.board-container, .tetris-container {
+    font-family: monospace;
+    font-weight: 700;
+    font-size: 1.5em;
+    display: flex;
+
+}
+
+.board-container form input {
+    color: white;
+
+}
+
+.tetris.options {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 1em;
+    /* flex-direction: row;; */
+
+}
+
+.tetris.options > button {
+    display: flex;
+
+}
+
+
+.tetris-container > aside {
+    display: flex;
+    flex-direction: column;
+    /* flex: 2; */
+    padding: 1em;
+    color: yellow;
+
+}
+
+aside .score {
+    display: flex;
+    border: 2px solid red;
+    padding: 1em;
+    color: yellow;
+
+}
+
+.tetris-container aside ul {
+    list-style: none;
+    font-size: small;
+
+}
+
+.tetris-container aside p {
+    color: blue;
+
+}
+
+.tetris.board {
+    display: flex;
+    background: black;
+
+}
+
+
+
+

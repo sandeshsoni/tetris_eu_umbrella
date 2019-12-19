@@ -119,6 +119,17 @@ defmodule Tetris.Core.Board do
     false
   end
 
+  def display_lane_tiles(board, lane_no \\ 1) do
+    index_y = Map.get(board.indexor, lane_no, 0)
+
+    # IO.puts inspect(board.indexor)
+    # IO.puts inspect(index_y)
+    # IO.puts List.duplicate("^", 5)
+
+    # tile_color = Map.get(board.lanes, index_y, %{}) |> Map.get(x, :empty)
+    Map.get(board.lanes, index_y, %{})
+  end
+
   # get all matured lanes
   defp any_lane_matured? do
     board = %{}

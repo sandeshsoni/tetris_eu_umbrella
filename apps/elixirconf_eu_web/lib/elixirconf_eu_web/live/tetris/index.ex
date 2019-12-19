@@ -12,9 +12,24 @@ defmodule  ElixirconfEuWeb.Tetris.Index do
   defp initial_state(socket) do
     game = Game.new(%{})
 
+    shape = Shape.new(:l_shape)
+    custom_position_coordinates = {2, 5}
+    shape_added_board = Board.add_shape(game.board, shape, custom_position_coordinates)
+    game = %Game{game | board: shape_added_board}
 
-    # IO.puts inspect(game)
-    # IO.puts List.duplicate("---", 10)
+
+    IO.puts List.duplicate("-+-", 10)
+    # IO.puts inspect(game.board.indexor)
+    # IO.puts List.duplicate("-+-", 10)
+    IO.puts inspect(Board.display_lane_tiles(game.board, 1))
+    IO.puts inspect(Board.display_lane_tiles(game.board, 2))
+    IO.puts inspect(Board.display_lane_tiles(game.board, 3))
+    IO.puts inspect(Board.display_lane_tiles(game.board, 4))
+    IO.puts inspect(Board.display_lane_tiles(game.board, 5))
+    IO.puts inspect(Board.display_lane_tiles(game.board, 6))
+    IO.puts inspect(Board.display_lane_tiles(game.board, 7))
+    IO.puts inspect(Board.display_lane_tiles(game.board, 8))
+    IO.puts List.duplicate("---", 10)
 
     assign(socket,
       # game: game,
@@ -25,6 +40,15 @@ defmodule  ElixirconfEuWeb.Tetris.Index do
       game_over: game.game_over,
       offset_x: game.offset_x,
       offset_y: game.offset_y,
+      lane_1: Board.display_lane_tiles(game.board, 1),
+      lane_2: Board.display_lane_tiles(game.board, 2),
+      lane_3: Board.display_lane_tiles(game.board, 3),
+      lane_4: Board.display_lane_tiles(game.board, 4),
+      lane_5: Board.display_lane_tiles(game.board, 5),
+      lane_6: Board.display_lane_tiles(game.board, 6),
+      lane_7: Board.display_lane_tiles(game.board, 7),
+      lane_8: Board.display_lane_tiles(game.board, 8),
+      lane_9: Board.display_lane_tiles(game.board, 9),
       # shape_names: game.shape_names,
       # board: game.board,
       player_name: "somebody",

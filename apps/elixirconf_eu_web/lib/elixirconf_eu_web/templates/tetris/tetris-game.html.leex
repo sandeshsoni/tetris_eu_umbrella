@@ -9,13 +9,9 @@
           Tetris Kachori
         </span>
       </p>
-      <div class="tetris grid"
+      <div class="tetris grid tetris-grid"
            phx-keyup="move"
            phx-target="window"
-           style="
-                  grid-template-columns: repeat(<%= @board.width %>, 1fr);
-                  grid-template-rows: repeat(<%= @board.height %>, 1fr);
-                  "
            >
 
         <%= for {x,y} <- @active_shape.coordinates do %>
@@ -30,19 +26,50 @@
             <% end %>
 
 
-            <%= for tile <- %{} do %>
-
-
+            <%= for {x, color} <- @lane_1 do %>
                 <div class="tetris grid-tile"
                      style="
-                            grid-row: <%= tile.y %>;
-                            grid-column: <%= tile.x %>;
-                            background-color: <%= tile.color %>
+                            grid-row: <%= 1 %>;
+                            grid-column: <%= x %>;
+                            background-color: <%= color %>
                             "
-
                      >
                 </div>
                 <% end %>
+
+            <%= for {x, color} <- @lane_5 do %>
+                <div class="tetris grid-tile"
+                     style="
+                            grid-row: <%= 5 %>;
+                            grid-column: <%= x %>;
+                            background-color: <%= color %>
+                            "
+                     >
+                </div>
+                <% end %>
+
+            <%= for {x, color} <- @lane_6 do %>
+                <div class="tetris grid-tile"
+                     style="
+                            grid-row: <%= 6 %>;
+                            grid-column: <%= x %>;
+                            background-color: <%= color %>
+                            "
+                     >
+                </div>
+                <% end %>
+
+            <%= for {x, color} <- @lane_7 do %>
+                <div class="tetris grid-tile"
+                     style="
+                            grid-row: <%= 7 %>;
+                            grid-column: <%= x %>;
+                            background-color: <%= color %>
+                            "
+                     >
+                </div>
+                <% end %>
+
 
       </div>
       <br/>
