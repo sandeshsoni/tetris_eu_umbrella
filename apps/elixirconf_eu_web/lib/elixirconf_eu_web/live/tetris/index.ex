@@ -10,7 +10,11 @@ defmodule  ElixirconfEuWeb.Tetris.Index do
   end
 
   defp initial_state(socket) do
-    game = Game.new()
+    game = Game.new(%{})
+
+
+    # IO.puts inspect(game)
+    # IO.puts List.duplicate("---", 10)
 
     assign(socket,
       # game: game,
@@ -19,7 +23,9 @@ defmodule  ElixirconfEuWeb.Tetris.Index do
       active_shape: game.active_shape,
       score: game.score,
       game_over: game.game_over,
-      shape_names: game.shape_names,
+      offset_x: game.offset_x,
+      offset_y: game.offset_y,
+      # shape_names: game.shape_names,
       # board: game.board,
       player_name: "somebody",
       new_game: true,
@@ -33,14 +39,19 @@ defmodule  ElixirconfEuWeb.Tetris.Index do
     assign(socket,
       # game: game,
       score: game.score,
-      game_over: game.game_over
+      active_shape: game.active_shape,
+      # game_over: game.game_over
       # board: game.board,
     )
   end
 
   def render(%{new_game: true} = assigns) do
     # Phoenix.LiveView.live_render("tetris_game.html")
-    LiveViewDemoWeb.TetrisView.render("tetris-welcome.html", assigns)
+    # ElixirconfEuWeb.TetrisView.render("tetris-welcome.html", assigns)
+
+    IO.puts inspect(assigns)
+
+    ElixirconfEuWeb.TetrisView.render("tetris-game.html", assigns)
   end
 
   # def render(%{tetris: true} = assigns) do
@@ -69,7 +80,7 @@ defmodule  ElixirconfEuWeb.Tetris.Index do
 
   end
   def render(%{game_over: false} = assigns) do
-    LiveViewDemoWeb.TetrisView.render("tetris-game.html", assigns)
+    ElixirconfEuWeb.TetrisView.render("tetris-game.html", assigns)
   end
 
   def handle_event("game_submit", %{

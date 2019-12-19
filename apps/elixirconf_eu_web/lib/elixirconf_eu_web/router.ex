@@ -17,7 +17,8 @@ defmodule ElixirconfEuWeb.Router do
   scope "/", ElixirconfEuWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    # get "/", PageController, :index
+    live "/", Tetris.Index
   end
 
   # Other scopes may use custom stacks.

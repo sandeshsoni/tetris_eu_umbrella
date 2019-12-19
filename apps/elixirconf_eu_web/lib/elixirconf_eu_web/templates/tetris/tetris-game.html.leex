@@ -13,8 +13,8 @@
            phx-keyup="move"
            phx-target="window"
            style="
-                  grid-template-columns: repeat(<%= @board.x %>, 1fr);
-                  grid-template-rows: repeat(<%= @board.y %>, 1fr);
+                  grid-template-columns: repeat(<%= @board.width %>, 1fr);
+                  grid-template-rows: repeat(<%= @board.height %>, 1fr);
                   "
            >
 
@@ -22,15 +22,15 @@
 
             <div class="tetris grid-tile"
                  style="
-                        grid-row: <%= y + @active_shape.offset_y %>;
-                        grid-column: <%= x + @active_shape.offset_x %>;
+                        grid-row: <%= y + @offset_y %>;
+                        grid-column: <%= x + @offset_x %>;
                         background-color: <%= @active_shape.color %>
                         " >
             </div>
             <% end %>
 
 
-            <%= for tile <- @board.filled_tiles do %>
+            <%= for tile <- %{} do %>
 
 
                 <div class="tetris grid-tile"
