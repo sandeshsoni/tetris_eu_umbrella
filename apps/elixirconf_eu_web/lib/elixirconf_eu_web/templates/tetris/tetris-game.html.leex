@@ -9,7 +9,8 @@
           Tetris Kachori
         </span>
       </p>
-      <div class="tetris grid tetris-grid"
+
+      <div class="tetris-grid"
            phx-keyup="move"
            phx-target="window"
            >
@@ -86,25 +87,19 @@
 
 
   <aside>
-    <a href="/" class="button"  > HOME </a>
-    <p>
-      Hello, <span><%= @player_name %></span>
-    </p>
-
     <div class="score">
       <span> Score: <%= @score %> </span>
     </div>
 
 
     <ul>
-      <li> Press Arrow Keys.
+      <li> use Arrow Keys.
       <li> left, right to move </li>
       <li> Up key to rotate. </li>
       <li> Down key to move down faster. </li>
     </ul>
     <br/>
     <p> built with <span style="color: red"> &hearts; </span> by <a href="http://www.sandeshsoni.com">Sandesh Soni</a></p>
-    <p> Pune, India </p>
 </div>
 
 </aside>

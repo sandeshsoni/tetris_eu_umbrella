@@ -7,23 +7,16 @@
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    background-image: url("/images/tetris_bg.png");
+    /* background-image: url("/images/tetris_bg.png"); */
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .tetris-grid {
+    display: grid;
     grid-template-columns: repeat(100, 1fr);
     grid-template-rows: repeat(50, 1fr);
-    grid-gap: 5px;
-
 }
-
-.tetris-grid > * {
-    border: 2px solid rgb(137,153,175);
-
-}
-
 
 @media screen and (min-width:769px){
     .tetris-container{
@@ -106,7 +99,7 @@
     flex-direction: column;
     /* flex: 2; */
     padding: 1em;
-    color: yellow;
+    /* color: yellow; */
 
 }
 
@@ -114,7 +107,7 @@ aside .score {
     display: flex;
     border: 2px solid red;
     padding: 1em;
-    color: yellow;
+    /* color: yellow; */
 
 }
 
