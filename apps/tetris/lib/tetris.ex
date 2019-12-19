@@ -13,11 +13,11 @@ defmodule Tetris do
 
   def move(session, direction) do
     # GenServer.handle_call(session, {:move, direction})
-    GameSession.handle_call(session, {:move, direction})
+    GenServer.call(session, {:move, direction})
   end
 
   def rotate(session) do
-    GameSession.handle_call(session, :rotate)
+    GenServer.call(session, :rotate)
   end
 
 end

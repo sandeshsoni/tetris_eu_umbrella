@@ -8,13 +8,17 @@ defmodule  ElixirconfEuWeb.Tetris.Index do
     # Let GenServe do this part.
 
     # {:ok, game_state} =
-    {:ok, game_session} = Tetris.start_game_session()
+    {:ok, game_session_pid} = Tetris.start_game_session()
 
     # IO.puts inspect(game_state)
     # generate_socket_from_state(socket, game_state)
 
-    new_socket = generate_socket_from_state(socket, :sys.get_state(game_session))
-    |> assign(:game_session_pid, game_session)
+    IO.puts inspect(game_session_pid)
+
+    new_socket = generate_socket_from_state(socket, :sys.get_state(game_session_pid))
+    |> assign(:game_id, game_session_pid)
+
+    IO.puts inspect(new_socket.assigns.game_id)
 
     {:ok, new_socket}
   end
@@ -25,16 +29,16 @@ defmodule  ElixirconfEuWeb.Tetris.Index do
   end
 
   def handle_event("tetris", "rotate", socket) do
-    game_session_id = socket.assigns.game_session_pid
+    game_session_id = socket.assigns.game_id
     Tetris.rotate(game_session_id)
     {:noreply, socket}
   end
 
   def handle_event("move", %{"code" => key}, socket) do
-    game_session_id = socket.assigns.game_session_pid
+    game_session_id = socket.assigns.game_id
     case key do
-      "ArrowRight" -> Tetris.move(:right, game_session_id)
-      "ArrowLeft" -> Tetris.move(:left, game_session_id)
+      "ArrowRight" -> Tetris.move(game_session_id, :right)
+      "ArrowLeft" -> Tetris.move(game_session_id, :left)
       _ -> nil
     end
     {:noreply, socket}
