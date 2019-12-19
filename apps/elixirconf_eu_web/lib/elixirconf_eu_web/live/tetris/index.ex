@@ -4,28 +4,45 @@ defmodule  ElixirconfEuWeb.Tetris.Index do
   alias Tetris.Core.{Board, Game, Shape}
 
   def mount(_session, socket) do
-    # if connected?(socket), do: Process.send_after(self(), :tick, 1000)
-    # Let GenServe do this part.
-
-    # {:ok, game_state} =
-    {:ok, game_session_pid} = Tetris.start_game_session()
-
-    # IO.puts inspect(game_state)
-    # generate_socket_from_state(socket, game_state)
-
-    IO.puts inspect(game_session_pid)
+    {:ok, game_session_pid} = Tetris.start_game_session(%{listener_pid:  self()})
 
     new_socket = generate_socket_from_state(socket, :sys.get_state(game_session_pid))
     |> assign(:game_id, game_session_pid)
 
-    IO.puts inspect(new_socket.assigns.game_id)
+
+    # IO.puts inspect(:sys.get_state(game_session_pid))
+
+    # IO.puts inspect(game_session_pid)
+    # IO.puts inspect(:sys.get_state(game_session_pid))
+
+    # IO.puts "game sess id and ^^^ game id"
+    # # # |> assign(:game_id, game_session_pid)
 
     {:ok, new_socket}
   end
 
+  def handle_event({:state_change, new_state}, socket) do
+
+    IO.puts "hanle event"
+    {:noreply, socket}
+  end
+
+  # def handle_info(msg, state) do
+  #   # Logger.error("Unhandled message -> module: #{__MODULE__}, msg: #{inspect msg}, state: #{inspect state}")
+
+  #   IO.puts " msg is "
+  #   IO.puts inspect(msg)
+
+  #   {:noreply, state}
+  # end
+
   def handle_info({:state_change, new_state}, socket) do
+
+    IO.puts "staet changesd..... response"
+
     # game_session_id = socket.assigns.game_session_pid
     {:noreply, generate_socket_from_state(socket, new_state)}
+    # {:noreply, socket}
   end
 
   def handle_event("tetris", "rotate", socket) do
@@ -36,8 +53,11 @@ defmodule  ElixirconfEuWeb.Tetris.Index do
 
   def handle_event("move", %{"code" => key}, socket) do
     game_session_id = socket.assigns.game_id
+    # game_session_id = socket.assigns.state_change_listener
+
     case key do
       "ArrowRight" -> Tetris.move(game_session_id, :right)
+      # "ArrowRight" -> Process.send(game_session_id, {:move, :right}, [])
       "ArrowLeft" -> Tetris.move(game_session_id, :left)
       _ -> nil
     end
@@ -48,10 +68,15 @@ defmodule  ElixirconfEuWeb.Tetris.Index do
   defp generate_socket_from_state(socket, game) do
     # game = :sys.get_state(game_session)
 
+    # IO.puts "*******************"
+    # IO.puts inspect(game)
+
     assign(socket,
       game_over: game.game_over,
       board: game.board,
       active_shape: game.active_shape,
+      # game_id: game.game_id,
+      state_change_listener: game.state_change_listener,
       score: game.score,
       game_over: game.game_over,
       offset_x: game.offset_x,

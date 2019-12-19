@@ -2,7 +2,7 @@ defmodule Tetris.Core.Game do
   alias Tetris.Core.{Board, Shape}
 
   defstruct ~w[
-    game_id
+    state_change_listener
     current_state
     active_shape
     next_shape
