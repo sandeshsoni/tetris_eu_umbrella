@@ -7,7 +7,8 @@ defmodule Tetris do
   """
 
   def start_game_session do
-    GenServer.start_link(GameManager, %{}, name: GameManager)
+    # GenServer.start_link(GameManager, %{}, name: GameManager)
+    GenServer.start_link(GameSession, %{})
   end
 
   def move(session, direction) do

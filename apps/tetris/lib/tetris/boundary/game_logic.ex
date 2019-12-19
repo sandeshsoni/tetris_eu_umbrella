@@ -5,6 +5,7 @@ defmodule Tetris.Boundary.GameLogic do
   def rotate(game) do
   end
 
+  #
   def move(%Game{ offset_x: offset_x,
                   offset_y: offset_y,
                   active_shape: active_shape,

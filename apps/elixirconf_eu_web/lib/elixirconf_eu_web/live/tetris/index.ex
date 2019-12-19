@@ -6,30 +6,57 @@ defmodule  ElixirconfEuWeb.Tetris.Index do
   def mount(_session, socket) do
     # if connected?(socket), do: Process.send_after(self(), :tick, 1000)
     # Let GenServe do this part.
-    {:ok, initial_state(socket)}
+
+    # {:ok, game_state} =
+    {:ok, game_session} = Tetris.start_game_session()
+
+    # IO.puts inspect(game_state)
+    # generate_socket_from_state(socket, game_state)
+
+    {:ok, generate_socket_from_state(socket, :sys.get_state(game_session))}
   end
 
-  defp initial_state(socket) do
+  # generate_socket
+  def generate_socket_from_state(socket, game) do
+    shape = Shape.new(:l_shape)
+    custom_position_coordinates = {2, 5}
+    shape_added_board = Board.add_shape(game.board, shape, custom_position_coordinates)
+    # game = %Game{game | board: shape_added_board}
+
+    assign(socket,
+      game_over: game.game_over,
+      board: game.board,
+      active_shape: game.active_shape,
+      score: game.score,
+      game_over: game.game_over,
+      offset_x: game.offset_x,
+      offset_y: game.offset_y,
+      lane_1: Board.display_lane_tiles(game.board, 1),
+      lane_2: Board.display_lane_tiles(game.board, 2),
+      lane_3: Board.display_lane_tiles(game.board, 3),
+      lane_4: Board.display_lane_tiles(game.board, 4),
+      lane_5: Board.display_lane_tiles(game.board, 5),
+      lane_6: Board.display_lane_tiles(game.board, 6),
+      lane_7: Board.display_lane_tiles(game.board, 7),
+      lane_8: Board.display_lane_tiles(game.board, 8),
+      lane_9: Board.display_lane_tiles(game.board, 9),
+      # shape_names: game.shape_names,
+      # board: game.board,
+      player_name: "somebody",
+      new_game: true,
+      speed: 600
+    )
+
+  end
+
+  defp initial_stated(socket) do
+
     game = Game.new(%{})
 
     shape = Shape.new(:l_shape)
     custom_position_coordinates = {2, 5}
     shape_added_board = Board.add_shape(game.board, shape, custom_position_coordinates)
     game = %Game{game | board: shape_added_board}
-
-
-    IO.puts List.duplicate("-+-", 10)
-    # IO.puts inspect(game.board.indexor)
-    # IO.puts List.duplicate("-+-", 10)
-    IO.puts inspect(Board.display_lane_tiles(game.board, 1))
-    IO.puts inspect(Board.display_lane_tiles(game.board, 2))
-    IO.puts inspect(Board.display_lane_tiles(game.board, 3))
-    IO.puts inspect(Board.display_lane_tiles(game.board, 4))
-    IO.puts inspect(Board.display_lane_tiles(game.board, 5))
-    IO.puts inspect(Board.display_lane_tiles(game.board, 6))
-    IO.puts inspect(Board.display_lane_tiles(game.board, 7))
-    IO.puts inspect(Board.display_lane_tiles(game.board, 8))
-    IO.puts List.duplicate("---", 10)
 
     assign(socket,
       # game: game,
@@ -64,17 +91,11 @@ defmodule  ElixirconfEuWeb.Tetris.Index do
       # game: game,
       score: game.score,
       active_shape: game.active_shape,
-      # game_over: game.game_over
-      # board: game.board,
     )
   end
 
   def render(%{new_game: true} = assigns) do
-    # Phoenix.LiveView.live_render("tetris_game.html")
-    # ElixirconfEuWeb.TetrisView.render("tetris-welcome.html", assigns)
-
-    IO.puts inspect(assigns)
-
+    # IO.puts inspect(assigns)
     ElixirconfEuWeb.TetrisView.render("tetris-game.html", assigns)
   end
 
