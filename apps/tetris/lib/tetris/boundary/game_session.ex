@@ -35,23 +35,11 @@ defmodule Tetris.Boundary.GameSession do
 
   def handle_call({:move, direction}, _from, game_state) do
 
-    # IO.puts "handle call move, from "
-    # IO.puts inspect(from)
-
-    # %Game{
-    #   board: board,
-    #   active_shape: shape,
-    #   offset_x: offset_x,
-    #   offset_y: offset_y,
-    # } = game_state
-
-    # next_state
     after_move = GameLogic.move(game_state, direction)
-    # require IEx; IEx.pry
 
     notify_game_changed(game_state, after_move)
 
-    {:reply, "moved", game_state}
+    {:reply, "moved", after_move}
   end
 
   # terminate game
@@ -62,11 +50,6 @@ defmodule Tetris.Boundary.GameSession do
     # game_session_pid = state.game_id
     state_change_listener = state.state_change_listener
 
-    # IO.puts inspect(state)
-
-    # Process.
-    # send(game_session_pid, {:state_change, next_state})
-    # Process.send(game_session_pid, {:state_change, next_state}, [])
     Process.send(state_change_listener, {:state_change, next_state}, [])
     :ok
   end

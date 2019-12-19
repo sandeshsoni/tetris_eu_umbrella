@@ -10,13 +10,6 @@ defmodule  ElixirconfEuWeb.Tetris.Index do
     |> assign(:game_id, game_session_pid)
 
 
-    # IO.puts inspect(:sys.get_state(game_session_pid))
-
-    # IO.puts inspect(game_session_pid)
-    # IO.puts inspect(:sys.get_state(game_session_pid))
-
-    # IO.puts "game sess id and ^^^ game id"
-    # # # |> assign(:game_id, game_session_pid)
 
     {:ok, new_socket}
   end
@@ -38,9 +31,7 @@ defmodule  ElixirconfEuWeb.Tetris.Index do
 
   def handle_info({:state_change, new_state}, socket) do
 
-    IO.puts "staet changesd..... response"
 
-    # game_session_id = socket.assigns.game_session_pid
     {:noreply, generate_socket_from_state(socket, new_state)}
     # {:noreply, socket}
   end
@@ -52,6 +43,7 @@ defmodule  ElixirconfEuWeb.Tetris.Index do
   end
 
   def handle_event("move", %{"code" => key}, socket) do
+
     game_session_id = socket.assigns.game_id
     # game_session_id = socket.assigns.state_change_listener
 
