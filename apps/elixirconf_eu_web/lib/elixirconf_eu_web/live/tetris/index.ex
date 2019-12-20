@@ -49,8 +49,9 @@ defmodule  ElixirconfEuWeb.Tetris.Index do
 
     case key do
       "ArrowRight" -> Tetris.move(game_session_id, :right)
-      # "ArrowRight" -> Process.send(game_session_id, {:move, :right}, [])
       "ArrowLeft" -> Tetris.move(game_session_id, :left)
+      "ArrowUp" -> Tetris.rotate(game_session_id)
+      "ArrowDown" -> Tetris.move(game_session_id, :down)
       _ -> nil
     end
     {:noreply, socket}

@@ -2,8 +2,8 @@ defmodule Tetris.Core.Board do
 
   alias Tetris.Core.Shape
 
-  @default_width 100
-  @default_height 50
+  @default_width 40
+  @default_height 10
 
   defstruct ~w(
     tiles
