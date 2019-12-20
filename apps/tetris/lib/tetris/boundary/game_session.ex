@@ -29,12 +29,12 @@ defmodule Tetris.Boundary.GameSession do
     {:reply, game_state}
   end
 
-  def handle_call({:rotate}, _from, game_state) do
+  def handle_call(:rotate, _from, game_state) do
 
-    after_move = GameLogic.rotate(game_state)
-    notify_game_changed(game_state, after_move)
+    state_after_move = GameLogic.rotate(game_state)
+    notify_game_changed(game_state, state_after_move)
 
-    {:reply,"rotated" ,game_state}
+    {:reply,"rotated" , state_after_move }
   end
 
   def handle_call({:move, direction}, _from, game_state) do

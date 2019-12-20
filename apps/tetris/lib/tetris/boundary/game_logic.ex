@@ -4,13 +4,13 @@ defmodule Tetris.Boundary.GameLogic do
 
   def rotate(%Game{ offset_x: offset_x,
                     offset_y: offset_y,
-                    active_shape: active_shape,
+                    active_shape: %Shape{coordinates: coordinates} = active_shape,
                     board: board
                   } = game) do
 
     IO.puts "rotate called"
 
-    rotated_shape = active_shape
+    rotated_shape = Shape.rotate(active_shape)
     %Game{game | active_shape: rotated_shape}
   end
 
