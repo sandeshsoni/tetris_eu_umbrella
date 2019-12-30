@@ -5,7 +5,7 @@ defmodule Tetris.Core.Board_test do
   describe "new board properties" do
 
     test "width and height" do
-      board = Board.new()
+      board = Board.new(100, 50)
 
       assert board.width == 100
       assert board.height == 50

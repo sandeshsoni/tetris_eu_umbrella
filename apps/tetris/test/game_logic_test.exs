@@ -3,6 +3,16 @@ defmodule TetrisTest.GameLogicTest do
   alias Tetris.Core.{Game, Shape, Board}
   alias Tetris.Boundary.{Rules, GameLogic}
 
+  setup do
+
+    {:ok, %{
+        board_20_20: Board.new(20, 20),
+        board_10_10: Board.new(10, 10),
+        s_shape: Shape.new(:s_shape),
+        t_shape: Shape.new(:t_shape),
+     }
+    }
+  end
 
   describe "new game started" do
 
@@ -27,8 +37,17 @@ defmodule TetrisTest.GameLogicTest do
 
   describe "rotation" do
 
-    @tag :skip
-    test "free rotation"
+    test "free rotation", elements do
+      game = Game.new(%{
+            board: elements.board_20_20,
+            current_shape: elements.s_shape
+                      })
+
+      game_after_step = GameLogic.rotate(game)
+
+      assert game != game_after_step
+    end
+
     @tag :skip
     test "when at corner"
     @tag :skip
@@ -36,10 +55,12 @@ defmodule TetrisTest.GameLogicTest do
   end
 
   describe "move" do
-    test "free move" do
-      board = Board.new(20, 20)
-      current_shape = Shape.new(:s_shape)
-      game = Game.new(%{board: board, active_shape: current_shape, offset_x: 5, offset_y: 1})
+    test "free move",elements do
+      game = Game.new(%{
+            board: elements.board_20_20,
+            active_shape: elements.s_shape,
+            offset_x: 5, offset_y: 1
+                      })
       game_after_move = GameLogic.move(game, :left)
 
       assert game != game_after_move
