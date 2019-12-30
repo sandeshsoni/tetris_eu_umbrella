@@ -24,7 +24,15 @@ defmodule TetrisTest.BoardManagerTest do
       {:ok, board_with_shape } = BoardManager.add(board, shape, coordinates)
     end
 
-    test "with coordinates outside board", game_elements do
+    test "with x coordinates outside board", game_elements do
+      board = game_elements.board_20_20
+      shape = game_elements.s_shape
+      coordinates = {70, 10}
+
+      {:error, _board_with_shape } = BoardManager.add(board, shape, coordinates)
+    end
+
+    test "with y coordinates outside board", game_elements do
       board = game_elements.board_20_20
       shape = game_elements.s_shape
       coordinates = {10, 70}

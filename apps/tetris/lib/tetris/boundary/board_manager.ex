@@ -1,10 +1,11 @@
 defmodule Tetris.Boundary.BoardManager do
 
   alias Tetris.Core.{Board, Shape}
+  alias Tetris.Boundary.{Rules}
 
   def add(%Board{
         lanes: board_lanes
-                } = board,
+          } = board,
     %Shape{
       color: shape_color,
       coordinates: coordinates
@@ -12,11 +13,13 @@ defmodule Tetris.Boundary.BoardManager do
     {offset_x, offset_y}
   ) do
 
-    tiles = Enum.map(coordinates, fn {x,y} -> {x + offset_x, y + offset_y} end)
+    if Rules.shape_outside_board?(board, shape, {offset_x, offset_y}) do
+      {:error, :out_of_board}
+    else
+      tiles = Enum.map(coordinates, fn {x,y} -> {x + offset_x, y + offset_y} end)
+      {:ok, add_tiles_to_board(board, tiles, shape_color)}
+    end
 
-    board = add_tiles_to_board(board, tiles, shape_color)
-
-    {:ok, board}
   end
 
   def add_tiles_to_board(board, tiles, color) do

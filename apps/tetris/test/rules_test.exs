@@ -26,13 +26,15 @@ defmodule TetrisTest.RulesTest do
       assert Rules.shape_outside_board?(board, shape, {x_coordinate, y_coordinate}) == true
     end
 
-    test "side boundary, over board width" do
-      board = Board.new(50,50)
+    test "side boundary, over board width", game_elements do
+      board = game_elements.board_20_20
+      shape = game_elements.s_shape
 
-      {x_coordinate, y_coordinate} = {11, 20}
-      shape = Tetris.Core.Shape.new(:s_shape)
+      coordinates_outside = { 31, 11 }
+      coordinates_inside = { 11, 15 }
 
-      assert Rules.shape_outside_board?(board, shape, {x_coordinate, y_coordinate}) == false
+      assert Rules.shape_outside_board?(board, shape, coordinates_inside) == false
+      assert Rules.shape_outside_board?(board, shape, coordinates_outside) == true
     end
 
     test "bottom boundary over" do
