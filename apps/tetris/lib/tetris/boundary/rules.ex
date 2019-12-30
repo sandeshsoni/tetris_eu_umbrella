@@ -24,6 +24,10 @@ defmodule Tetris.Boundary.Rules do
     |> Enum.reduce_while(false, fn {x, y}, acc -> if Board.check_tile_slot_empty(board, {x, y}), do: {:cont, false}, else: {:halt, true} end)
   end
 
+
+  def collides_with_board_tiles?() do
+  end
+
   def check_rotate_valid do
   end
 

@@ -2,7 +2,17 @@ defmodule TetrisTest.RulesTest do
   use ExUnit.Case
 
   alias Tetris.Core.{Game, Shape, Board}
-  alias Tetris.Boundary.{Rules}
+  alias Tetris.Boundary.{Rules, BoardManager}
+
+  setup do
+    {:ok, %{
+        board_20_20: Board.new(20, 20),
+        board_10_10: Board.new(10, 10),
+        s_shape: Shape.new(:s_shape),
+        t_shape: Shape.new(:t_shape),
+     }
+    }
+  end
 
   describe "boundaries" do
     test "side boundary, negative x" do
@@ -50,7 +60,8 @@ defmodule TetrisTest.RulesTest do
       board = Board.new(50,50)
       shape = Tetris.Core.Shape.new(:s_shape)
       {x_coordinate, y_coordinate} = {11, 47}
-      b_w_s = Board.add_shape(board, shape, {x_coordinate, y_coordinate})
+      # b_w_s = Board.add_shape(board, shape, {x_coordinate, y_coordinate})
+      {:ok, b_w_s } = BoardManager.add(board, shape, {x_coordinate, y_coordinate})
 
       coordinates_1_above = { 11, 46 }
       coordinates_3_above = { 11, 44 }
@@ -68,13 +79,12 @@ defmodule TetrisTest.RulesTest do
   end
 
   describe "x intersection with existing shapes" do
-    test "insert shape on empty" do
-      board = Board.new(50,50)
-      shape = Tetris.Core.Shape.new(:s_shape)
+    test "insert shape on empty", game_elements do
+      board = game_elements.board_20_20
+      shape = game_elements.s_shape
       {x_coordinate, y_coordinate} = {11, 45}
-      b_w_s = Board.add_shape(board, shape, {x_coordinate, y_coordinate})
+      {:ok, b_w_s } = BoardManager.add(board, shape, {x_coordinate, y_coordinate})
 
-      # shape_to_check = Tetris.Core.Shape.new(:l_shape, 15, 44)
       coordinates_far_away = { 15, 44 }
       coordinates_very_close = { 12, 45 }
 
@@ -83,6 +93,21 @@ defmodule TetrisTest.RulesTest do
       assert Rules.intersection_x?(b_w_s, shape, coordinates_very_close) == true
 
     end
+
+    test "collide with tile?", game_elements do
+      {x_coordinate, y_coordinate} = {11, 45}
+      {:ok, b_w_s } = BoardManager.add(game_elements.board_20_20, game_elements.s_shape, {x_coordinate, y_coordinate})
+      # collides_with_board_tiles?
+
+      shape = game_elements.s_shape
+      coordinates_far_away = { 15, 44 }
+      coordinates_very_close = { 12, 45 }
+
+      assert Rules.intersection_x?(b_w_s, shape, coordinates_far_away) == false
+      assert Rules.intersection_x?(b_w_s, shape, coordinates_very_close) == true
+
+    end
+
   end
 
 end

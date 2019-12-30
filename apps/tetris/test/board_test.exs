@@ -2,6 +2,17 @@ defmodule Tetris.Core.Board_test do
   use ExUnit.Case
   alias Tetris.Core.{Board, Shape}
 
+  setup do
+    {:ok, %{
+        board_20_20: Board.new(20, 20),
+        board_50_50: Board.new(50, 50),
+        board_10_10: Board.new(10, 10),
+        s_shape: Shape.new(:s_shape),
+        t_shape: Shape.new(:t_shape),
+        l_shape: Shape.new(:l_shape),
+     }
+    }
+  end
   describe "new board properties" do
 
     test "width and height" do
@@ -25,6 +36,7 @@ defmodule Tetris.Core.Board_test do
 
   describe "add shape to board" do
 
+    @tag :skip
     test "ignoring rules" do
       board = Board.new()
       shape_at_custom_position = Shape.new(:s_shape)
@@ -35,6 +47,7 @@ defmodule Tetris.Core.Board_test do
       refute board.empty_lane_ids == shape_added_board.empty_lane_ids
     end
 
+    @tag :skip
     test "no duplicate filled lanes" do
       board = Board.new()
       shape = Shape.new(:l_shape)
@@ -54,16 +67,21 @@ defmodule Tetris.Core.Board_test do
       assert indexor_count == uniq_indexor_count
     end
 
+    @tag :skip
     test "disallow add if the tiles on board are already solid" do
       board = Board.new()
       shape = Shape.new(:l_shape)
       custom_position_coordinates = {10, 70}
 
       shape_added_board = Board.add_shape(board, shape, custom_position_coordinates)
+
+      # assert Board.add_shape(shape_added_board, shape, custom_position_coordinates)
+      {:error, _} = Board.add_shape(shape_added_board, shape, custom_position_coordinates)
     end
 
   end
 
+  @tag :skip
   describe "tile occupied check" do
     test "single tile check" do
       board = Board.new()
@@ -81,6 +99,7 @@ defmodule Tetris.Core.Board_test do
       assert Board.check_tile_slot_empty(shape_added_board, near_coordinate) == false
     end
 
+    @tag :skip
     test "get occupied tile of shape" do
       board = Board.new()
       shape_at_custom_position = Shape.new(:l_shape)
