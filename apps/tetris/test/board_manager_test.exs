@@ -32,6 +32,7 @@ defmodule TetrisTest.BoardManagerTest do
       {:error, _board_with_shape } = BoardManager.add(board, shape, coordinates)
     end
 
+    @tag :skip
     test "with y coordinates outside board", game_elements do
       board = game_elements.board_20_20
       shape = game_elements.s_shape
