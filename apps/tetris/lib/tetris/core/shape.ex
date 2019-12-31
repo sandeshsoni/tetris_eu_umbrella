@@ -89,7 +89,7 @@ defmodule Tetris.Core.Shape do
     }
   end
 
-  def new(shape, starting_point_x \\ 0, starting_point_y \\ 0) do
-  end
+  # def new(shape, starting_point_x \\ 0, starting_point_y \\ 0) do
+  # end
 
 end

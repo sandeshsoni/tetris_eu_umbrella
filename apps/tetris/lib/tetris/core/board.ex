@@ -72,7 +72,7 @@ defmodule Tetris.Core.Board do
     false
   end
 
-  def display_lane_tiles(board, lane_no \\ 1) do
+  def display_lane_tiles(board, lane_no) do
     index_y = Map.get(board.indexor, lane_no, 0)
 
     # IO.puts inspect(board.indexor)

@@ -2,15 +2,15 @@ defmodule Tetris.Boundary.GameSession do
   use GenServer
 
   alias Tetris.Core.{Board, Shape, Game}
-  alias Tetris.Boundary.{GameLogic}
+  alias Tetris.Boundary.{GameLogic, BoardManager}
 
 
   def init(opts) do
     game = Game.new(opts)
     shape = Shape.new(:l_shape)
     custom_position_coordinates = {2, 5}
-    shape_added_board = Board.add_shape(game.board, shape, custom_position_coordinates)
-    game = %Game{game | board: shape_added_board}
+    # shape_added_board = BoardManager.add(game.board, shape, custom_position_coordinates)
+    # game = %Game{game | board: shape_added_board}
 
     Process.send_after(self(), :tick, 500)
 
