@@ -3,7 +3,7 @@ defmodule Tetris.Core.Board do
   alias Tetris.Core.Shape
 
   @default_width 40
-  @default_height 10
+  @default_height 50
 
   defstruct ~w(
     tiles
@@ -47,57 +47,45 @@ defmodule Tetris.Core.Board do
   # lane_12rand0m = %{0: :red, 1: :blue, 2: nil, 3: yello}
   # lane_14rand0m = %{0: :red, 1: :red, 2: green, 3: yello}
 
-  def process do
-    board = %{1 => %{1 => :a, 2 => :b, 3 => nil}}
-    access_element = board[1][3]
+  # def process do
+  #   board = %{1 => %{1 => :a, 2 => :b, 3 => nil}}
+  #   access_element = board[1][3]
+  #   # store lane here
+  #   seq_abc = [{:b, 1}, {:a, 3}]
+  #   board_seq_map = %{19 => 1, 20 => 4, empties: [1,2]}
+  # end
 
-    # store lane here
-    seq_abc = [{:b, 1}, {:a, 3}]
-    board_seq_map = %{19 => 1, 20 => 4, empties: [1,2]}
+  # defp intersection_check? do
+  #   board = %{}
+  #   seq_map = %{19 => 1, 20 => 4, empties: [1,2]}
+  #   shape_coords = [{1,1}, {2,3}]
+  #   board = Map.put(board, 4, %{1 => :red})
+  #   board[ seq_map[20]][1]
+  #   Enum.any?(shape_coords, fn coord -> tile_present_in(coord, board) end)
+  # end
 
-  end
-
-  defp intersection_check? do
-    board = %{}
-    seq_map = %{19 => 1, 20 => 4, empties: [1,2]}
-
-    shape_coords = [{1,1}, {2,3}]
-    board = Map.put(board, 4, %{1 => :red})
-    board[ seq_map[20]][1]
-
-    Enum.any?(shape_coords, fn coord -> tile_present_in(coord, board) end)
-  end
-
-  defp tile_present_in(coord, board) do
-    false
-  end
+  # defp tile_present_in(coord, board) do
+  #   false
+  # end
 
   def display_lane_tiles(board, lane_no) do
     index_y = Map.get(board.indexor, lane_no, 0)
-
-    # IO.puts inspect(board.indexor)
-    # IO.puts inspect(index_y)
-    # IO.puts List.duplicate("^", 5)
-
-    # tile_color = Map.get(board.lanes, index_y, %{}) |> Map.get(x, :empty)
     Map.get(board.lanes, index_y, %{})
   end
 
   # get all matured lanes
-  defp any_lane_matured? do
-    board = %{}
+  # defp any_lane_matured? do
+  #   board = %{}
+  #   # lanes_where shaped dropped
+  #   # 19, 20
+  # end
 
-    # lanes_where shaped dropped
-    # 19, 20
-  end
-
-  defp on_matured do
-    lanes = %{19 => 17, empty: [19, 1,2]}
-    # change key or copy paste to new location
-
-    # if 17 and 19 are matured,
-    # shift down 18 by 1, all above 16 by 2
-  end
+  # defp on_matured do
+  #   lanes = %{19 => 17, empty: [19, 1,2]}
+  #   # change key or copy paste to new location
+  #   # if 17 and 19 are matured,
+  #   # shift down 18 by 1, all above 16 by 2
+  # end
 
   # lane_seq[4]
 

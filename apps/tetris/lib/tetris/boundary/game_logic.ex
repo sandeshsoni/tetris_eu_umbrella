@@ -26,7 +26,8 @@ defmodule Tetris.Boundary.GameLogic do
          {:ok, updated_game} <- Rules.touches_ground(board, shape, u_coordinates)
          # {:ok, no_lane_matured} <- Rules.no_lane_matures(board, shape, u_coordinates)
       do
-      %Game{game | offset_x: offset_x - 1}
+      {u_offset_x, u_offset_y} = u_coordinates
+      %Game{game | offset_x: u_offset_x, offset_y: u_offset_y}
       else
         {:error, :outside} -> game
       {:error, :tile_present} -> game
@@ -35,39 +36,20 @@ defmodule Tetris.Boundary.GameLogic do
     end
   end
 
-  def move_for_touched_ground(game) do
+  defp move_for_touched_ground(game) do
     random_shape = Shape.new(:l_shape)
     board = BoardManager.add(game.board, game.active_shape, {game.offset_x, game.offset_y})
     %Game{ game |
-           offset_x: 0,
-           offset_y: 5,
+           offset_x: 5,
+           offset_y: 1,
            active_shape: game.next_shape,
            next_shape: random_shape,
            board: board
     }
   end
 
-  def step_for_lane_matured(game) do
+  defp step_for_lane_matured(game) do
     game
-  end
-
-  def move(%Game{ offset_x: offset_x,
-                  offset_y: offset_y,
-                  active_shape: shape,
-                  board: board
-                } = game, :left) do
-    with {:ok, coordinates} <- Rules.validate_shape_position(board, shape, {offset_x, offset_y}),
-         {:error, _coordinates} <- Rules.detect_colission(board, shape, coordinates)
-    # {:ok, false} <- Rules.touches_y_axis?(board, shape, coordinates)
-    # with {:ok, true} = Rule.touches_bottom_lane_axis?()
-    # # with {:ok, false} = Rule.any_lane_matures?(board, tiles)
-      do
-
-      IO.puts "detect collission false"
-
-      {u_offset_x, u_offset_y} = coordinates
-      %Game{game | offset_x: u_offset_x}
-    end
   end
 
   def move(%Game{ offset_x: offset_x,
@@ -79,9 +61,10 @@ defmodule Tetris.Boundary.GameLogic do
          {:ok, coordinates} <- Rules.validate_shape_position(board, shape, u_coordinates),
          {:ok, coordinates} <- Rules.detect_colission(board, shape, u_coordinates),
          {:ok, updated_game} <- Rules.touches_ground(board, shape, u_coordinates)
-         # {:ok, no_lane_matured} <- Rules.no_lane_matures(board, shape, u_coordinates)
+    # {:ok, no_lane_matured} <- Rules.no_lane_matures(board, shape, u_coordinates)
       do
-      %Game{game | offset_x: offset_x - 1}
+      {u_offset_x, u_offset_y} = u_coordinates
+      %Game{game | offset_x: u_offset_x, offset_y: u_offset_y}
       else
         {:error, :outside} -> game
       {:error, :tile_present} -> game
@@ -102,7 +85,8 @@ defmodule Tetris.Boundary.GameLogic do
          {:ok, updated_game} <- Rules.touches_ground(board, shape, u_coordinates)
          # {:ok, no_lane_matured} <- Rules.no_lane_matures(board, shape, u_coordinates)
       do
-      %Game{game | offset_x: offset_x - 1}
+      {u_offset_x, u_offset_y} = u_coordinates
+      %Game{game | offset_x: u_offset_x, offset_y: u_offset_y}
       else
         {:error, :outside} -> game
       {:error, :tile_present} -> game
@@ -111,12 +95,12 @@ defmodule Tetris.Boundary.GameLogic do
     end
   end
 
-  def move(game, move_direction) do
-    # score
-    # active_shape
-    # next_shape
-    # board
-    game
-  end
+  # def move(game, move_direction) do
+  #   # score
+  #   # active_shape
+  #   # next_shape
+  #   # board
+  #   game
+  # end
 
 end
