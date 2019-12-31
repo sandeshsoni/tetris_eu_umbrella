@@ -20,10 +20,11 @@ defmodule Tetris.Boundary.GameLogic do
                   active_shape: shape,
                   board: board
                 } = game, :left) do
-    with {:ok, coordinates} <- Rules.validate_shape_position(board, shape, {offset_x, offset_y}),
-         {:ok, coordinates} <- Rules.detect_colission(board, shape, coordinates),
-         {:ok, updated_game} <- Rules.touches_ground(board, shape, coordinates),
-         {:ok, no_lane_matured} <- Rules.no_lane_matures(board, shape, coordinates)
+    with u_coordinates <- { offset_x - 1, offset_y},
+         {:ok, coordinates} <- Rules.validate_shape_position(board, shape, u_coordinates),
+         {:ok, coordinates} <- Rules.detect_colission(board, shape, u_coordinates),
+         {:ok, updated_game} <- Rules.touches_ground(board, shape, u_coordinates),
+         {:ok, no_lane_matured} <- Rules.no_lane_matures(board, shape, u_coordinates)
       do
       %Game{game | offset_x: offset_x - 1}
       else
