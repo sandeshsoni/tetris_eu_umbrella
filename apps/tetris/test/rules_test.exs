@@ -53,10 +53,24 @@ defmodule TetrisTest.RulesTest do
 
   end
 
-  describe "touches y axis" do
-    test "on empty new board" do
-      #
+  describe "touches ground API " do
+
+    test "ground coordinates", game_elements do
+      board = game_elements.board_20_20
+      shape = game_elements.s_shape
+
+      coordinates_outside = { 11, 51 }
+      coordinates_inside = { 11, 11 }
+      coordinates_on_boundary = { 11, 17 }
+      {:ok, _} = Rules.not_touches_ground(board, shape, coordinates_inside)
+      {:error, :touches_ground} = Rules.not_touches_ground(board, shape, coordinates_outside)
+      {:ok, _} = Rules.not_touches_ground(board, shape, coordinates_on_boundary)
+
     end
+
+  end
+
+  describe "touches y axis" do
 
     test "when shape below" do
       board = Board.new(50,50)

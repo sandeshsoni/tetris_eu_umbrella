@@ -23,7 +23,7 @@ defmodule Tetris.Boundary.GameLogic do
     with u_coordinates <- { offset_x - 1, offset_y},
          {:ok, coordinates} <- Rules.validate_shape_position(board, shape, u_coordinates),
          {:ok, coordinates} <- Rules.detect_colission(board, shape, u_coordinates),
-         {:ok, updated_game} <- Rules.touches_ground(board, shape, u_coordinates)
+         {:ok, updated_game} <- Rules.not_touches_ground(board, shape, u_coordinates)
          # {:ok, no_lane_matured} <- Rules.no_lane_matures(board, shape, u_coordinates)
       do
       {u_offset_x, u_offset_y} = u_coordinates
@@ -60,7 +60,8 @@ defmodule Tetris.Boundary.GameLogic do
     with u_coordinates <- { offset_x + 1, offset_y},
          {:ok, coordinates} <- Rules.validate_shape_position(board, shape, u_coordinates),
          {:ok, coordinates} <- Rules.detect_colission(board, shape, u_coordinates),
-         {:ok, updated_game} <- Rules.touches_ground(board, shape, u_coordinates)
+         {:ok, updated_game} <- Rules.not_touches_ground(board, shape, u_coordinates)
+         # {:ok, updated_game} <- Rules.touches_ground(board, shape, u_coordinates)
     # {:ok, no_lane_matured} <- Rules.no_lane_matures(board, shape, u_coordinates)
       do
       {u_offset_x, u_offset_y} = u_coordinates
@@ -82,7 +83,8 @@ defmodule Tetris.Boundary.GameLogic do
     with u_coordinates <- { offset_x, offset_y + 1},
          {:ok, coordinates} <- Rules.validate_shape_position(board, shape, u_coordinates),
          {:ok, coordinates} <- Rules.detect_colission(board, shape, u_coordinates),
-         {:ok, updated_game} <- Rules.touches_ground(board, shape, u_coordinates)
+         {:ok, updated_game} <- Rules.not_touches_ground(board, shape, u_coordinates)
+         # {:ok, updated_game} <- Rules.touches_ground(board, shape, u_coordinates)
          # {:ok, no_lane_matured} <- Rules.no_lane_matures(board, shape, u_coordinates)
       do
       {u_offset_x, u_offset_y} = u_coordinates

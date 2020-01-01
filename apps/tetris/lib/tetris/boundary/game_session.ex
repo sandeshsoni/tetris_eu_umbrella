@@ -12,7 +12,7 @@ defmodule Tetris.Boundary.GameSession do
     # shape_added_board = BoardManager.add(game.board, shape, custom_position_coordinates)
     # game = %Game{game | board: shape_added_board}
 
-    Process.send_after(self(), :tick, 500)
+    # Process.send_after(self(), :tick, 500)
 
     {:ok, game}
   end

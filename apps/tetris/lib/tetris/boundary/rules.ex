@@ -31,6 +31,15 @@ defmodule Tetris.Boundary.Rules do
   end
 
   ### API
+  def not_touches_ground(board, shape, coordinates) do
+    if touches_footer?(board, shape, coordinates) do
+      {:error, :touches_ground}
+    else
+      {:ok, board}
+    end
+  end
+
+  ### API
   def touches_ground(board, shape, coordinates) do
     if touches_footer?(board, shape, coordinates) do
       {:ok, board}
