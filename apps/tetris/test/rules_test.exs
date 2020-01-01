@@ -126,4 +126,16 @@ defmodule TetrisTest.RulesTest do
 
   end
 
+  describe "touches tile from bottom API" do
+    test "foo", game_elements do
+      {x_coordinate, y_coordinate} = {11, 15}
+      shape = game_elements.s_shape
+      {:ok, b_w_s } = BoardManager.add(game_elements.board_20_20, game_elements.s_shape, {x_coordinate, y_coordinate})
+
+      {:ok, _} = Rules.gravity_pull?(b_w_s, shape, {x_coordinate, y_coordinate - 3})
+      # {:ok, _} = Rules.gravity_pull?(b_w_s, shape, {x_coordinate, y_coordinate - 2})
+      {:error, :tile_below} = Rules.gravity_pull?(b_w_s, shape, {x_coordinate, y_coordinate - 1})
+    end
+  end
+
 end
