@@ -10,13 +10,13 @@
         </span>
       </p>
 
+
       <div class="tetris-grid"
            phx-keyup="move"
            phx-target="window"
            >
 
         <%= for {x,y} <- @active_shape.coordinates do %>
-
             <div class="tetris grid-tile"
                  style="
                         grid-row: <%= y + @offset_y %>;
@@ -26,50 +26,19 @@
             </div>
             <% end %>
 
+            <%= for {lane_no, key} <- @indexor do %>
 
-            <%= for {x, color} <- @lane_1 do %>
-                <div class="tetris grid-tile"
-                     style="
-                            grid-row: <%= 1 %>;
-                            grid-column: <%= x %>;
-                            background-color: <%= color %>
-                            "
-                     >
-                </div>
-                <% end %>
+                <%= for {x, color} <- @lanes[key] do %>
 
-            <%= for {x, color} <- @lane_5 do %>
-                <div class="tetris grid-tile"
-                     style="
-                            grid-row: <%= 5 %>;
-                            grid-column: <%= x %>;
-                            background-color: <%= color %>
-                            "
-                     >
-                </div>
-                <% end %>
-
-            <%= for {x, color} <- @lane_6 do %>
-                <div class="tetris grid-tile"
-                     style="
-                            grid-row: <%= 6 %>;
-                            grid-column: <%= x %>;
-                            background-color: <%= color %>
-                            "
-                     >
-                </div>
-                <% end %>
-
-            <%= for {x, color} <- @lane_7 do %>
-                <div class="tetris grid-tile"
-                     style="
-                            grid-row: <%= 7 %>;
-                            grid-column: <%= x %>;
-                            background-color: <%= color %>
-                            "
-                     >
-                </div>
-                <% end %>
+                    <div class="tetris grid-tile"
+                    style="
+                           grid-row: <%= lane_no %>;
+                           grid-column: <%= x  %>;
+                           background-color: <%= color %>
+                           " >
+            </div>
+               <% end %>
+               <% end %>
 
 
       </div>

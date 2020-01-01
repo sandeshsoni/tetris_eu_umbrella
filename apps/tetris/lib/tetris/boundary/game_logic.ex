@@ -39,6 +39,7 @@ defmodule Tetris.Boundary.GameLogic do
   defp move_for_touched_ground(game) do
     random_shape = Shape.new(:l_shape)
     {:ok, board} = BoardManager.add(game.board, game.active_shape, {game.offset_x, game.offset_y})
+
     %Game{ game |
            offset_x: 5,
            offset_y: 1,
