@@ -48,6 +48,25 @@ defmodule Tetris.Boundary.Rules do
     end
   end
 
+  def lanes_matured_with_shape_at(board, shape,{_offset_x, offset_y} =  coordinates) do
+
+    # refactor, indexor not needed
+    length_lane = fn(lane_no) ->
+      idx = Map.get(board.indexor, lane_no, 0)
+      len =  Enum.count( Map.get(board.lanes, idx, %{}))
+
+      # IO.puts len
+      len
+    end
+
+    shape_lanes = shape.coordinates
+    # |> Enum.map(fn {x,y} -> {x, y + offset_y} end)
+    |> Enum.map(fn {_x, y} -> (y + offset_y) end)
+    |> Enum.uniq
+    |> Enum.filter(fn lane -> (length_lane.(lane) == board.width) end)
+
+
+  end
 
   # so that can drop and move
   def touches_footer?(board, shape, {x_coordinate, y_coordinate}) do
