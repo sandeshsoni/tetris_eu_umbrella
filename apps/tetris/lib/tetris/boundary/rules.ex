@@ -8,7 +8,7 @@ defmodule Tetris.Boundary.Rules do
     # IO.puts inspect(y_coordinate)
 
     Tetris.Core.Shape.with_offset_counted(shape, x_coordinate, y_coordinate)
-    |> Enum.reduce_while(false, fn {x, _y}, acc -> if (x > 1 and x < board.width), do: {:cont, false}, else: {:halt, true} end)
+    |> Enum.reduce_while(false, fn {x, _y}, acc -> if (x > 0 and x < (board.width + 1)), do: {:cont, false}, else: {:halt, true} end)
   end
 
   ### api

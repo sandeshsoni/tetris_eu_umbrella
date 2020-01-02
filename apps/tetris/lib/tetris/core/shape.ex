@@ -16,23 +16,8 @@ defmodule Tetris.Core.Shape do
     %__MODULE__{ shape | coordinates: MapSet.new(new_coords) }
   end
 
-  # def move_left(%__MODULE__{offset_x: old_offset_x} = shape) do
-  #   %__MODULE__{ shape | offset_x: (old_offset_x - 1)
-  #   }
-  # end
-
-  # def move_right(%__MODULE__{offset_x: old_offset_x} = shape) do
-  #   %__MODULE__{ shape | offset_x: (old_offset_x + 1)
-  #   }
-  # end
-
-  # def move_down(%__MODULE__{offset_y: old_offset_y} = shape) do
-  #   %__MODULE__{ shape | offset_y: (old_offset_y + 1)
-  #   }
-  # end
-
   def new_random do
-    [:l_shape, :s_shape]
+    [:l_shape, :s_shape, :t_shape]
     |> Enum.random
     |> new
   end
@@ -51,15 +36,18 @@ defmodule Tetris.Core.Shape do
                      {0,2},{1,2}
                    ]),
       length: 2,
-      # offset_x: starting_point_x,
-      # offset_y: starting_point_y,
       color: :red
     }
   end
 
+  # {x, y}
+  # s * *
+  # s s *
+  # * s *
+  # S - shape
   def new(:s_shape) do
     %__MODULE__{
-      coordinates: MapSet.new([{2,1}, {3,1}, {1,2}, {2,2}]),
+      coordinates: MapSet.new([{0,0}, {0,1}, {1,1}, {1,2}]),
       length: 2,
       # offset_x: starting_point_x,
       # offset_y: starting_point_y,
