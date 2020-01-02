@@ -126,6 +126,18 @@ defmodule TetrisTest.RulesTest do
 
   end
 
+  @tag :skip
+  describe "lane mature API" do
+    test "one lane match", game_elements do
+      {x_coordinate, y_coordinate} = {11, 15}
+      shape = game_elements.s_shape
+
+      {:ok, b_w_s } = BoardManager.add(game_elements.board_20_20, game_elements.s_shape, {x_coordinate, y_coordinate})
+
+      # {:error, :tile_below} = Rules.no_lane_matured?(b_w_s, shape, {x_coordinate, y_coordinate})
+    end
+  end
+
   describe "touches tile from bottom API" do
     test "foo", game_elements do
       {x_coordinate, y_coordinate} = {11, 15}
