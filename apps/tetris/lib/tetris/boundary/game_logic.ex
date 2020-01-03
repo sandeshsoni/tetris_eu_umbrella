@@ -18,6 +18,7 @@ defmodule Tetris.Boundary.GameLogic do
         {:error, :outside} -> game
       {:error, :tile_present} -> game
         {:error, :tile_below} -> game
+      {:error, :touches_ground} -> game
     end
   end
 
@@ -97,9 +98,9 @@ defmodule Tetris.Boundary.GameLogic do
     end
   end
 
-  defp step_for_lane_matured(game) do
-    game
-  end
+  # defp step_for_lane_matured(game) do
+  #   game
+  # end
 
   def move(%Game{ offset_x: offset_x,
                   offset_y: offset_y,
@@ -152,20 +153,14 @@ defmodule Tetris.Boundary.GameLogic do
                   board: board
                 } = game, :gravity) do
     with u_coordinates <- { offset_x, offset_y + 1},
-         # {:ok, coordinates} <- Rules.validate_shape_position(board, shape, u_coordinates),
-         # {:ok, coordinates} <- Rules.detect_colission(board, shape, u_coordinates),
          {:ok, updated_game} <- Rules.not_touches_ground(board, shape, u_coordinates),
-         # {:ok, _} <- Rules.gravity_pull?(board, shape, u_coordinates), when (offset_y < 2),
          {:ok, _} <- Rules.gravity_pull?(board, shape, u_coordinates)
       do
       {u_offset_x, u_offset_y} = u_coordinates
       %Game{game | offset_x: u_offset_x, offset_y: u_offset_y}
       else
-        # {:error, :outside} -> game
-      # {:error, :tile_present} -> game
         {:error, :touches_ground} -> move_for_touched_ground(game, shape, {offset_x, offset_y + 1})
-      # {:error, :lane_matured} -> step_for_lane_matured(game)
-      {:error, :tile_below} -> step_for_tile_below(game, shape, {offset_x, offset_y + 1})
+      {:error, :tile_below} -> step_for_tile_below(game, shape, {offset_x, offset_y})
         {:error, :game_over} -> declare_game_over(game)
     end
   end

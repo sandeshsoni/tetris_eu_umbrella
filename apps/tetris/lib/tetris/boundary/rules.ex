@@ -80,7 +80,7 @@ defmodule Tetris.Boundary.Rules do
 
   def touches_y?(board, shape, {x_coordinate, y_coordinate}) do
     Tetris.Core.Shape.with_offset_counted(shape, x_coordinate, y_coordinate)
-    |> Enum.reduce_while(false, fn {x, y}, acc -> if Board.check_tile_slot_empty(board, {x, y + 1}), do: {:cont, false}, else: {:halt, true} end)
+    |> Enum.reduce_while(false, fn {x, y}, acc -> if Board.check_tile_slot_empty(board, {x, y}), do: {:cont, false}, else: {:halt, true} end)
   end
 
   def intersection_x?(board, shape, {x_coordinate, y_coordinate}) do
@@ -90,18 +90,12 @@ defmodule Tetris.Boundary.Rules do
 
   def intersection_y?(board, shape, {x_coordinate, y_coordinate}) do
     Tetris.Core.Shape.with_offset_counted(shape, x_coordinate, y_coordinate)
-    |> Enum.reduce_while(false, fn {x, y}, acc -> if Board.check_tile_slot_empty(board, {x, y + 1}), do: {:cont, false}, else: {:halt, true} end)
+    |> Enum.reduce_while(false, fn {x, y}, acc -> if Board.check_tile_slot_empty(board, {x, y}), do: {:cont, false}, else: {:halt, true} end)
   end
 
   def collides_with_board_tiles?(board, shape, {x_coordinate, y_coordinate}) do
     Tetris.Core.Shape.with_offset_counted(shape, x_coordinate, y_coordinate)
     |> Enum.reduce_while(false, fn {x, y}, acc -> if Board.check_tile_slot_empty(board, {x, y}), do: {:cont, false}, else: {:halt, true} end)
-  end
-
-  def check_rotate_valid do
-  end
-
-  def check_positions_valid do
   end
 
 end
