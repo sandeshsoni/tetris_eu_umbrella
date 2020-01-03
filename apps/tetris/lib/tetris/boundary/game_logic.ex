@@ -95,9 +95,9 @@ defmodule Tetris.Boundary.GameLogic do
       }
     else
 
-      IO.puts "lane matured....."
-      IO.puts inspect(lanes)
-      IO.puts "matured lanes..."
+      # IO.puts "lane matured....."
+      # IO.puts inspect(lanes)
+      # IO.puts "matured lanes..."
 
 
       %Game{ game |
@@ -105,7 +105,7 @@ defmodule Tetris.Boundary.GameLogic do
              offset_y: 1,
              active_shape: game.next_shape,
              next_shape: Shape.new_random(),
-             board: b_w_s
+             board: BoardManager.remove_lanes_from_board(b_w_s, lanes)
       }
 
     end

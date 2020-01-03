@@ -53,4 +53,25 @@ defmodule Tetris.Boundary.BoardManager do
     }
   end
 
+  def remove_lanes_from_board(board, lane_indexes) do
+    foo = fn(board, lane_index) ->
+
+      lane_key = Map.get(board.indexor, lane_index, 0)
+      y_lane = Map.get(board.lanes, lane_key, %{})
+      {deleted, remaining_lanes} = Map.pop(board.lanes, lane_key)
+      {empty_lane_id, occupied_indexors} = Map.pop(board.indexor, lane_index)
+
+      %Board{
+        board |
+        indexor: occupied_indexors,
+        empty_lane_ids: [ lane_key | board.empty_lane_ids],
+        lanes: remaining_lanes
+      }
+    end
+
+    lane_indexes
+    |> Enum.reduce(board, fn lane_index, lanes -> foo.(board, lane_index) end)
+  end
+
+
 end
