@@ -40,9 +40,13 @@ defmodule Tetris.Boundary.Rules do
   end
 
   ### API
-  def gravity_pull?(board, shape, coordinates) do
+  def gravity_pull?(board, shape, {offset_x, offset_y} = coordinates) do
     if intersection_y?(board, shape, coordinates) do
-      {:error, :tile_below}
+      if offset_y <= shape.length do
+        {:error, :game_over}
+      else
+        {:error, :tile_below}
+      end
     else
       {:ok, board}
     end
