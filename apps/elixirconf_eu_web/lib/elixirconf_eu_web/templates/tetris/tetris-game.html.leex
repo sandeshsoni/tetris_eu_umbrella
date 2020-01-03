@@ -14,6 +14,10 @@
       <div class="tetris-grid"
            phx-keyup="move"
            phx-target="window"
+           style="
+                  grid-template-columns: repeat(<%= @board.width %>, 1fr);
+                  grid-template-rows: repeat(<%= @board.height %>, 1fr);
+                  "
            >
 
         <%= for {x,y} <- @active_shape.coordinates do %>
