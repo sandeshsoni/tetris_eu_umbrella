@@ -12,7 +12,7 @@ defmodule Tetris.Boundary.GameSession do
     # shape_added_board = BoardManager.add(game.board, shape, custom_position_coordinates)
     # game = %Game{game | board: shape_added_board}
 
-    # Process.send_after(self(), :tick, 500)
+    Process.send_after(self(), :tick, 500)
 
     {:ok, game}
   end
@@ -45,11 +45,13 @@ defmodule Tetris.Boundary.GameSession do
     # GenServer.call(self(), {:move, :down})
     # notify_game_changed(state, state)
 
-    IO.puts "tick"
-    state_after_move = GameLogic.move(game_state, :down)
+    # IO.puts "tick"
+    # state_after_move = GameLogic.move(game_state, :down)
+    state_after_move = GameLogic.move(game_state, :gravity)
 
-    if state_after_move.current_state == :finish do
+    if state_after_move.current_state == :game_over do
       # {:stop}
+      IO.puts "Game Over..."
     else
       Process.send_after(self(), :tick, 500)
     end
