@@ -78,7 +78,7 @@ defmodule TetrisTest.GameLogicTest do
     test "right side boundary" do
       board = Board.new(20, 20)
       current_shape = Shape.new(:s_shape)
-      game = Game.new(%{board: board, active_shape: current_shape, offset_x: 18, offset_y: 1})
+      game = Game.new(%{board: board, active_shape: current_shape, offset_x: (board.width - 1), offset_y: 2})
       game_after_move = GameLogic.move(game, :right)
 
       assert game == game_after_move
