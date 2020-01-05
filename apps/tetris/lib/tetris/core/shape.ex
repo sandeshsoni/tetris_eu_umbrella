@@ -16,8 +16,13 @@ defmodule Tetris.Core.Shape do
     %__MODULE__{ shape | coordinates: MapSet.new(new_coords) }
   end
 
+  @doc """
+  Generates a random Shape every time.
+  You might want different orientation so you can rotate it as you want.
+  """
   def new_random do
-    [:l_shape, :s_shape, :t_shape]
+
+    [:l_shape, :s_shape, :t_shape, :box_shape, :line_shape]
     |> Enum.random
     |> new
   end
@@ -28,7 +33,6 @@ defmodule Tetris.Core.Shape do
   # l * *
   # l l *
   # L - shape
-  # def new(:l_shape, starting_point_x \\ 0, starting_point_y \\ 0) do
   def new(:l_shape) do
     %__MODULE__{
       coordinates: MapSet.new([ {0,0},
@@ -37,6 +41,41 @@ defmodule Tetris.Core.Shape do
                    ]),
       length: 2,
       color: :red
+    }
+  end
+
+  # coordinate {x,y}
+  # x, y. from 0,0
+  # l * * *
+  # l * * *
+  # l * * *
+  # l * * *
+  # L - shape
+  def new(:line_shape) do
+    %__MODULE__{
+      coordinates: MapSet.new([ {0,0},
+                                {0,1},
+                                {0,2},
+                                {0,3}
+                              ]),
+      length: 4,
+      color: :red
+    }
+  end
+
+  # {x, y}
+  # b b *
+  # b b *
+  # S - shape
+  def new(:box_shape) do
+    %__MODULE__{
+      coordinates: MapSet.new([{0,0}, {1,0},
+                               {0,1}, {1,1}
+                              ]),
+      length: 1,
+      # offset_x: starting_point_x,
+      # offset_y: starting_point_y,
+      color: :yellow
     }
   end
 
