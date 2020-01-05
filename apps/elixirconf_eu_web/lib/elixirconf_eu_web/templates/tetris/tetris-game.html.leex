@@ -48,10 +48,6 @@
       </div>
       <br/>
       <div>
-        <button phx-click="joystick-move" phx-value-dir="down">down</button>
-        <button phx-click="joystick-move" phx-value-dir="up">rotate</button>
-        <button phx-click="joystick-move" phx-value-dir="left">left</button>
-        <button phx-click="joystick-move" phx-value-dir="right">right</button>
       </div>
 
     </div>
@@ -60,6 +56,25 @@
 
 
   <aside>
+    <div class="next-shape-container">
+      <div class="next-shape-wrapper">
+        <p>
+          Next Shape
+        </p>
+        <div class="next-shape-grid">
+          <%= for {x,y} <- @next_shape.coordinates do %>
+              <div class="tetris grid-tile"
+                   style="
+                          grid-row: <%= y + 2 %>;
+                          grid-column: <%= x + 2 %>;
+                          background-color: <%= @next_shape.color %>
+                        " >
+              </div>
+              <% end %>
+        </div>
+      </div>
+    </div>
+
     <div class="score">
       <span> Score: <%= @score %> </span>
     </div>
@@ -71,7 +86,6 @@
       <li> Up key to rotate. </li>
       <li> Down key to move down faster. </li>
     </ul>
-    <br/>
     <p> built with <span style="color: red"> &hearts; </span> by <a href="http://www.sandeshsoni.com">Sandesh Soni</a></p>
 </div>
 
