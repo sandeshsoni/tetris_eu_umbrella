@@ -19,6 +19,24 @@
     grid-gap: 1px;
 }
 
+.next-shape-container {
+    background: black;
+    display: inline-flex;
+    flex-direction: column;
+    border: 2px solid red;
+    width: auto;
+}
+
+.next-shape-wrapper {
+    display: inherit;
+}
+.next-shape-grid {
+    display: grid;
+    grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 1px;
+}
+
 @media screen and (min-width:769px){
     .tetris-container{
         flex-direction: row;
