@@ -22,6 +22,7 @@ defmodule Tetris.Boundary.BoardManager do
 
   end
 
+
   def add_tiles_to_board(board, tiles, color) do
     Enum.reduce(tiles, board, fn tile, acc_board -> add_tile_to_board(acc_board, tile, color ) end)
   end

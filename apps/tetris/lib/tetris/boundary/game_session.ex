@@ -7,8 +7,8 @@ defmodule Tetris.Boundary.GameSession do
 
   def init(opts) do
     game = Game.new(opts)
-    shape = Shape.new(:l_shape)
-    custom_position_coordinates = {2, 5}
+    # shape = Shape.new(:l_shape)
+    # custom_position_coordinates = {2, 5}
     # shape_added_board = BoardManager.add(game.board, shape, custom_position_coordinates)
     # game = %Game{game | board: shape_added_board}
 
