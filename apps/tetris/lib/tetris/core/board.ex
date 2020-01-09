@@ -11,7 +11,7 @@ defmodule Tetris.Core.Board do
     width
     height
     indexor
-    empty_lane_ids
+    # empty_lane_ids
     lanes
   )a
 
@@ -21,7 +21,7 @@ defmodule Tetris.Core.Board do
       width: input_width,
       height: input_height,
       lanes: %{},
-      empty_lane_ids: Enum.map(1..input_height, &(&1)),
+      # empty_lane_ids: Enum.map(1..input_height, &(&1)),
       indexor: %{}
       # Map.new(empty_lanes: Enum.map(1..input_height, &(&1)))
     }
