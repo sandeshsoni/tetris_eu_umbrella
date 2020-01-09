@@ -71,17 +71,29 @@ defmodule Tetris.Boundary.Rules do
     |> Enum.filter(fn lane -> (length_lane.(lane) == board.width) end)
   end
 
-  defp shape_collides_with_board_tiles?(board, shape, {x_coordinate, y_coordinate}) do
-    Tetris.Core.Shape.with_offset_counted(shape, x_coordinate, y_coordinate)
-    |> Enum.reduce_while(false, fn {x, y}, acc -> if Board.check_tile_slot_empty(board, {x, y}), do: {:cont, false}, else: {:halt, true} end)
+  defp shape_collides_with_board_tiles?(board, shape, {offset_x, offset_y} = offsets) do
+    # Tetris.Core.Shape.with_offset_counted(shape, x_coordinate, y_coordinate)
+    shape.coordinates
+    |> Enum.reduce_while(false, fn {x, y}, acc -> if tile_slot_empty?(board, {x + offset_x, y + offset_y}), do: {:cont, false}, else: {:halt, true} end)
   end
 
   # so that can drop and move
   def touches_footer?(board, shape, {x_coordinate, y_coordinate}) do
     Tetris.Core.Shape.with_offset_counted(shape, x_coordinate, y_coordinate)
-    |> Enum.reduce_while(false, fn {_x, y}, acc -> if (y < board.height), do: {:cont, false}, else: {:halt, true} end)
+    # |> Enum.reduce_while(false, fn {_x, y}, acc -> if (y == board.height), do: {:cont, false}, else: {:halt, true} end)
+    |> Enum.reduce_while(false, fn {_x, y}, acc -> if (y > board.height), do: {:halt, true}, else: {:cont, false} end)
   end
 
+  defp tile_slot_empty?(board,{x, y}) do
+    index_y = Map.get(board.indexor, y, 0)
+    tile_color = Map.get(board.lanes, index_y, %{}) |> Map.get(x, :empty)
+
+    if tile_color == :empty do
+      true
+    else
+      false
+    end
+  end
 
   # def collides_with_board_tiles?(board, shape, {x_coordinate, y_coordinate}) do
   #   Tetris.Core.Shape.with_offset_counted(shape, x_coordinate, y_coordinate)

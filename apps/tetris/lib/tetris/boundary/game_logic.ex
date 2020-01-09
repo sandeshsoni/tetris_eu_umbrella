@@ -174,13 +174,13 @@ defmodule Tetris.Boundary.GameLogic do
                   board: board
                 } = game, :gravity) do
     with u_coordinates <- { offset_x, offset_y + 1},
-         {:ok, updated_game} <- Rules.not_touches_ground(board, shape, u_coordinates),
+         {:ok, _updated_game} <- Rules.not_touches_ground(board, shape, u_coordinates),
          {:ok, _} <- Rules.gravity_pull?(board, shape, u_coordinates)
       do
       {u_offset_x, u_offset_y} = u_coordinates
       %Game{game | offset_x: u_offset_x, offset_y: u_offset_y}
       else
-        {:error, :touches_ground} -> move_for_touched_ground(game, shape, {offset_x, offset_y + 1})
+        {:error, :touches_ground} -> move_for_touched_ground(game, shape, {offset_x, offset_y})
       {:error, :tile_below} -> step_for_tile_below(game, shape, {offset_x, offset_y})
         {:error, :game_over} -> declare_game_over(game)
     end
