@@ -1,11 +1,9 @@
 /* This file is for your main application css. */
 
-@import "./phoenix.css";
+/* @import "./phoenix.css"; */
 
 .tetris-container {
-    height: 100vh;
     display: flex;
-    justify-content: space-between;
     flex-direction: column;
     /* background-image: url("/images/tetris_bg.png"); */
     background-size: cover;
@@ -14,9 +12,13 @@
 
 .tetris-grid {
     display: grid;
+    background: black;
+    width: fit-content;
+    height: fit-content;
     /* grid-template-columns: repeat(40, 1fr); */
     /* grid-template-rows: repeat(10, 1fr); */
     grid-gap: 1px;
+    border: 5px solid black;
 }
 
 .next-shape-container {
@@ -43,8 +45,8 @@
     }
 
     .tetris.grid-tile {
-        height: 22px;
-        width: 22px;
+        height: 30px;
+        width: 30px;
     }
 
 
@@ -78,9 +80,10 @@
 
 .board-container {
     display: flex;
+    justify-items: center;
+    flex: 4;
     flex-direction: column;
     padding: 5px;
-    background: black;
     color: blue;
 
 }
@@ -116,7 +119,7 @@
 .tetris-container > aside {
     display: flex;
     flex-direction: column;
-    /* flex: 2; */
+    flex: 1;
     padding: 1em;
     /* color: yellow; */
 
