@@ -18,6 +18,7 @@
     /* grid-template-columns: repeat(40, 1fr); */
     /* grid-template-rows: repeat(10, 1fr); */
     grid-gap: 1px;
+    margin-left: auto;
     border: 5px solid black;
 }
 
@@ -83,7 +84,7 @@
     justify-items: center;
     flex: 4;
     flex-direction: column;
-    padding: 5px;
+    /* padding: 5px; */
     color: blue;
 
 }
@@ -115,13 +116,16 @@
 
 }
 
+span.game-title {
+    font-family: 'Press Start 2P';font-size: 22px;
+    color: yellow;
+}
 
 .tetris-container > aside {
     display: flex;
     flex-direction: column;
     flex: 1;
-    padding: 1em;
-    /* color: yellow; */
+    background: purple;
 
 }
 
