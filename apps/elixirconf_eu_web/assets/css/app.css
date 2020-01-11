@@ -118,15 +118,17 @@
 
 span.game-title {
     font-family: 'Press Start 2P';font-size: 22px;
-    color: yellow;
+    color: purple;
 }
 
 .tetris-container > aside {
     display: flex;
     flex-direction: column;
     flex: 1;
-    background: purple;
 
+}
+
+.tetris-container > aside > a {
 }
 
 aside .score {
@@ -140,7 +142,9 @@ aside .score {
 .tetris-container aside ul {
     list-style: none;
     font-size: small;
-
+}
+.tetris-container aside ul li{
+    padding-bottom: 10px;
 }
 
 .tetris-container aside p {
