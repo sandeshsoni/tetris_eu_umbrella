@@ -24,11 +24,7 @@ defmodule Tetris.Boundary.BoardManager do
     y_lane = Map.get(board.lanes, lane_key, %{})
     y_lane_with_tile_added = Map.put(y_lane, x, color)
     u_lanes = Map.put(board.lanes, lane_key, y_lane_with_tile_added)
-    %Board{
-      board |
-      indexor: u_indexor,
-      lanes: u_lanes
-    }
+    %Board{ board | indexor: u_indexor, lanes: u_lanes}
   end
 
   def remove_lanes_from_board(board, lane_indexes) do
@@ -50,9 +46,7 @@ defmodule Tetris.Boundary.BoardManager do
       )
     end)
 
-    %Board{
-      board | indexor: u_indexor,
-      lanes: u_lanes
+    %Board{ board | indexor: u_indexor, lanes: u_lanes
     }
   end
 end
