@@ -27,34 +27,44 @@ defmodule Tetris.Boundary.BoardManager do
     Enum.reduce(tiles, board, fn tile, acc_board -> add_tile_to_board(acc_board, tile, color ) end)
   end
 
-  def add_tile_to_board(board, {x, y} = tile, color) do
+  # # WIP improve code
+  # def add_tile_to_board(board, {x,y} = tile, color) do
+  #   generate_random_uniq = fn ->
+  #     Integer.to_string(:rand.uniform(4294967296), 32)
+  #   end
+  #   u_indexor = Map.put_new_lazy(board.indexor, y, generate_random_uniq)
+  #   lane_key = board.indexor[y]
+  #   y_lane = Map.get(board.lanes, lane_key, %{})
+  #   y_lane_with_tile_added = Map.put(y_lane, x, color)
+  #   u_lanes = Map.put(board.lanes, lane_key, y_lane_with_tile_added)
+  #   %Board{
+  #     board |
+  #     indexor: u_indexor,
+  #     lanes: u_lanes
+  #   }
+  # end
 
+
+  def add_tile_to_board(board, {x, y} = tile, color) do
     # {remaining_empty_lanes, u_indexor, u_lanes} = if Map.has_key?(board.indexor, y) do
     {u_indexor, u_lanes} = if Map.has_key?(board.indexor, y) do
-
       lane_key = board.indexor[y]
       y_lane = board.lanes[lane_key]
       y_lane_added = Map.put(y_lane, x, color)
       updated_lanes = Map.put(board.lanes, lane_key, y_lane_added)
-
       # {board.empty_lane_ids, board.indexor, updated_lanes}
       {board.indexor, updated_lanes}
     else
       # [first | remaining_empty_lanes] = board.empty_lane_ids
       lane_key = generate_random_uniq()
-
       updated_indexor = Map.put(board.indexor, y, lane_key)
       updated_lanes = Map.put(board.lanes, lane_key, %{x => color})
-
       # {remaining_empty_lanes, updated_indexor, updated_lanes}
       {updated_indexor, updated_lanes}
     end
-
-
     %Board{
       board | indexor: u_indexor,
       lanes: u_lanes,
-      # empty_lane_ids: remaining_empty_lanes
     }
   end
 
