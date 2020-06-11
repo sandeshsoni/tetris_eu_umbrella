@@ -36,6 +36,7 @@ defmodule Tetris.Boundary.GameLogic do
                   active_shape: shape,
                   board: board
                 } = game, :left) do
+  # def move(offset_x, offset_y, shape, board, :left) do
     with u_coordinates <- { offset_x - 1, offset_y},
          {:ok, coordinates} <- Rules.validate_shape_position(board, shape, u_coordinates),
          {:ok, coordinates} <- Rules.detect_colission(board, shape, u_coordinates)
