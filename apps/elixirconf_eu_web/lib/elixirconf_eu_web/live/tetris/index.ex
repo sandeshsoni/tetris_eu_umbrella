@@ -35,34 +35,58 @@ defmodule  ElixirconfEuWeb.Tetris.Index do
 
     IO.puts "move ... #{ key } "
 
-    game = %Game{offset_x: ox,
-                 offset_y: oy,
-                 active_shape: active_shape,
-                 board: board
-                }
+    # game = %Game{offset_x: ox,
+    #              offset_y: oy,
+    #              active_shape: active_shape,
+    #              board: board
+    #             }
 
+    game = generate_game_from_socket(socket)
 
     res = case key do
-            # "ArrowRight" -> GameLogic.move(ox, oy, active_shape, board, :right)
+            "ArrowRight" -> GameLogic.move(game, :right)
             "ArrowLeft" -> GameLogic.move(game, :left)
             # "ArrowLeft" -> GameLogic.move(ox, oy, active_shape, board, :left)
             # "ArrowLeft" -> Tetris.move(game_session_id, :left)
             # "ArrowUp" -> Tetris.rotate(game_session_id)
-            # "ArrowDown" -> Tetris.move(game_session_id, :down)
+            "ArrowDown" -> GameLogic.move(game, :down)
             _ -> nil
           end
 
-    IO.puts inspect(res)
+    # IO.puts inspect(res)
 
     updated_socket = generate_socket_from_game(socket, res)
 
 
-    # {:noreply, updated_socket}
-    {:noreply, socket}
+    {:noreply, updated_socket}
+    # {:noreply, socket}
+  end
+
+  defp generate_game_from_socket(socket) do
+      game_over = socket.assigns.game_over
+      board = socket.assigns.board
+      active_shape = socket.assigns.active_shape
+      next_shape = socket.assigns.next_shape
+      score = socket.assigns.score
+      offset_x = socket.assigns.offset_x
+      offset_y = socket.assigns.offset_y
+      # lanes = socket.assigns.board.lanes
+      # indexor = socket.assigns.board.indexor
+
+      # new_game: true,
+      # speed: 600
+
+      %Game{offset_x: offset_x,
+            offset_y: offset_y,
+            active_shape: active_shape,
+            board: board,
+            game_over: game_over,
+            next_shape: next_shape,
+            score: score,
+      }
   end
 
   defp generate_socket_from_game(socket, game) do
-
     assign(socket,
       game_over: game.game_over,
       board: game.board,
@@ -80,7 +104,6 @@ defmodule  ElixirconfEuWeb.Tetris.Index do
       new_game: true,
       speed: 600
     )
-
   end
 
   def render(assigns) do
