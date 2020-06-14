@@ -6,12 +6,14 @@ defmodule  ElixirconfEuWeb.Tetris.Index do
   def mount(_session, socket) do
     # {:ok, game_session_pid} = Tetris.start_game_session(%{listener_pid:  self()})
 
-    game = Game.new(%{})
+    game = Game.new(%{ width: 20, height: 15})
     new_socket = generate_socket_from_game(socket, game)
+
     # new_socket = generate_socket_from_state(socket, :sys.get_state(game_session_pid))
     # |> assign(:game_id, game_session_pid)
 
 
+    Process.send_after(self(), :tick, 500)
 
     {:ok, new_socket}
   end
@@ -24,6 +26,26 @@ defmodule  ElixirconfEuWeb.Tetris.Index do
     # game_session_id = socket.assigns.game_id
     # Tetris.rotate(game_session_id)
     {:noreply, socket}
+  end
+
+
+  def handle_info(:tick, socket) do
+    game_state = generate_game_from_socket(socket)
+    # res = GameLogic.move(game, :gravity)
+
+    state_after_move = GameLogic.move(game_state, :gravity)
+
+    if state_after_move.current_state == :game_over do
+      IO.puts "Game Over..."
+    else
+      Process.send_after(self(), :tick, 500)
+    end
+
+    # notify_game_changed(state_after_move, state_after_move)
+    # {:noreply, state_after_move}
+
+    updated_socket = generate_socket_from_game(socket, state_after_move)
+    {:noreply, updated_socket}
   end
 
   def handle_event("move", %{"code" => key}, socket) do
@@ -49,6 +71,7 @@ defmodule  ElixirconfEuWeb.Tetris.Index do
             # "ArrowLeft" -> GameLogic.move(ox, oy, active_shape, board, :left)
             # "ArrowLeft" -> Tetris.move(game_session_id, :left)
             # "ArrowUp" -> Tetris.rotate(game_session_id)
+            "ArrowUp" -> GameLogic.rotate(game)
             "ArrowDown" -> GameLogic.move(game, :down)
             _ -> nil
           end
